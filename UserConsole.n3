@@ -1,0 +1,60 @@
+:userconsole a :ComponentType .
+:userconsole :hasComponentName "userconsole" .
+:userconsole :hasDomain :atm .
+:userconsole :hasNameDomain "atm" .
+:userconsole :hasSubDomain :keyboard .
+:userconsole :hasNameSubDomain "keyboard" .
+:iuserconsole380  a :Interface .
+:iuserconsole380  :typeInterface :provided .
+:userconsole  :hasInterface :iuserconsole380 .
+:iuserconsole380  :hasInterfaceName "iuserconsole" .
+:iuserconsole380  :hasMethod :readpin380 .
+:iuserconsole380  :hasMethod2 :readpin .
+:readpin  :hasMethodName "readpin" .
+:readpin380  :hasMethodName "readpin" .
+:readpin380  a :Method .
+:readpin380  :typeReturn :void.
+:readpin380  :NomTypeRet "void".
+:readpin380  :hasParameter  :cardno380 .
+:readpin380  :hasParameterName  "cardno1" .
+:cardno380  :hasNameParameter "cardno1" .
+:cardno380  :hasDirection  :in .
+:cardno380  :hasNameDir "in" .
+:int a :Int .
+:cardno380  :hasDataTypeParameter  :int .
+:cardno380  :hasNameTypePar "int1" .
+:cardno380  :hasIndexOrder 1 .
+:cardno380  :hasNameIndex  "1" .
+:readpin380  :hasParameter  :password380 .
+:readpin380  :hasParameterName  "password2" .
+:password380  :hasNameParameter "password2" .
+:password380  :hasDirection  :in .
+:password380  :hasNameDir "in" .
+:string a :String .
+:password380  :hasDataTypeParameter  :string .
+:password380  :hasNameTypePar "string2" .
+:password380  :hasIndexOrder 2 .
+:password380  :hasNameIndex  "2" .
+:readpin380  :hasNumParameters  2 .
+:readpin380  :hasNumParMethod  "2" .
+:iuserconsole380  :hasInterfaceName "iuserconsole" .
+:iuserconsole380  :hasMethod :setmenu380 .
+:iuserconsole380  :hasMethod2 :setmenu .
+:setmenu  :hasMethodName "setmenu" .
+:setmenu380  :hasMethodName "setmenu" .
+:setmenu380  a :Method .
+:setmenu380  :typeReturn :void.
+:setmenu380  :NomTypeRet "void".
+:setmenu380  :hasNumParameters  0 .
+:setmenu380  :hasNumParMethod  "0" .
+:iuserconsole380  :hasInterfaceName "iuserconsole" .
+:iuserconsole380  :hasMethod :setmessages380 .
+:iuserconsole380  :hasMethod2 :setmessages .
+:setmessages  :hasMethodName "setmessages" .
+:setmessages380  :hasMethodName "setmessages" .
+:setmessages380  a :Method .
+:setmessages380  :typeReturn :void.
+:setmessages380  :NomTypeRet "void".
+:setmessages380  :hasNumParameters  0 .
+:setmessages380  :hasNumParMethod  "0" .
+:iuserconsole  :hasNumMethods 3 .

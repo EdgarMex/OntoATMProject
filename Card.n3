@@ -1,0 +1,60 @@
+:card a :ComponentType .
+:card :hasComponentName "card" .
+:card :hasDomain :card .
+:card :hasNameDomain "card" .
+:card :hasSubDomain :atm .
+:card :hasNameSubDomain "atm" .
+:icard836  a :Interface .
+:icard836  :typeInterface :provided .
+:card  :hasInterface :icard836 .
+:icard836  :hasInterfaceName "icard" .
+:icard836  :hasMethod :readcard836 .
+:icard836  :hasMethod2 :readcard .
+:readcard  :hasMethodName "readcard" .
+:readcard836  :hasMethodName "readcard" .
+:readcard836  a :Method .
+:readcard836  :typeReturn :void.
+:readcard836  :NomTypeRet "void".
+:readcard836  :hasParameter  :cardno836 .
+:readcard836  :hasParameterName  "cardno1" .
+:cardno836  :hasNameParameter "cardno1" .
+:cardno836  :hasDirection  :in .
+:cardno836  :hasNameDir "in" .
+:int a :Int .
+:cardno836  :hasDataTypeParameter  :int .
+:cardno836  :hasNameTypePar "int1" .
+:cardno836  :hasIndexOrder 1 .
+:cardno836  :hasNameIndex  "1" .
+:readcard836  :hasParameter  :password836 .
+:readcard836  :hasParameterName  "password2" .
+:password836  :hasNameParameter "password2" .
+:password836  :hasDirection  :in .
+:password836  :hasNameDir "in" .
+:string a :String .
+:password836  :hasDataTypeParameter  :string .
+:password836  :hasNameTypePar "string2" .
+:password836  :hasIndexOrder 2 .
+:password836  :hasNameIndex  "2" .
+:readcard836  :hasNumParameters  2 .
+:readcard836  :hasNumParMethod  "2" .
+:icard836  :hasInterfaceName "icard" .
+:icard836  :hasMethod :ejectcard836 .
+:icard836  :hasMethod2 :ejectcard .
+:ejectcard  :hasMethodName "ejectcard" .
+:ejectcard836  :hasMethodName "ejectcard" .
+:ejectcard836  a :Method .
+:ejectcard836  :typeReturn :void.
+:ejectcard836  :NomTypeRet "void".
+:ejectcard836  :hasNumParameters  0 .
+:ejectcard836  :hasNumParMethod  "0" .
+:icard836  :hasInterfaceName "icard" .
+:icard836  :hasMethod :consortium836 .
+:icard836  :hasMethod2 :consortium .
+:consortium  :hasMethodName "consortium" .
+:consortium836  :hasMethodName "consortium" .
+:consortium836  a :Method .
+:consortium836  :typeReturn :void.
+:consortium836  :NomTypeRet "void".
+:consortium836  :hasNumParameters  0 .
+:consortium836  :hasNumParMethod  "0" .
+:icard  :hasNumMethods 3 .

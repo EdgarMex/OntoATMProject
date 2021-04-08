@@ -1,0 +1,20 @@
+:printer a :ComponentType .
+:printer :hasComponentName "printer" .
+:printer :hasDomain :printer .
+:printer :hasNameDomain "printer" .
+:printer :hasSubDomain :atm .
+:printer :hasNameSubDomain "atm" .
+:iprinter403  a :Interface .
+:iprinter403  :typeInterface :provided .
+:printer  :hasInterface :iprinter403 .
+:iprinter403  :hasInterfaceName "iprinter" .
+:iprinter403  :hasMethod :printreceipt403 .
+:iprinter403  :hasMethod2 :printreceipt .
+:printreceipt  :hasMethodName "printreceipt" .
+:printreceipt403  :hasMethodName "printreceipt" .
+:printreceipt403  a :Method .
+:printreceipt403  :typeReturn :void.
+:printreceipt403  :NomTypeRet "void".
+:printreceipt403  :hasNumParameters  0 .
+:printreceipt403  :hasNumParMethod  "0" .
+:iprinter  :hasNumMethods 1 .
