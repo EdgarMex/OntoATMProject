@@ -1,0 +1,1054 @@
+@prefix       : <http://www.ejemplo.org/#> .
+@prefix  owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix  xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+: a owl:Ontology ;
+   rdfs:comment "A ATM Ontology for matching among components in ATM model" .
+
+#-----------------------------------------------------------------------------------------------
+#-- Declaration of Classes ----------- Versi�n 3.0 junio 2020 -----------------------------
+#-----------------------------------------------------------------------------------------------
+
+:Context       a owl:Class .
+
+:Condition     a owl:Class ;
+                rdfs:label   "Class: Condition used by Pre, Post and Invariant" ;
+                rdfs:comment "Condition".                 
+
+:ComponentType a owl:Class ;
+                rdfs:label   "Class: Instances of Component Type" ;
+                rdfs:comment "Instances of Components";
+                rdfs:subClassOf   
+                     [ a owl:Restriction ;
+                         owl:onProperty :hasInterface ;  # Restriccion sobre el numero de interfases
+                         owl:minCardinality 1 ] .  # Un componente tiene minimo 1 interfaz
+
+# Modificar los tipos de la ontologia a los Tipos de CORBA-IDL+
+:DataType        a owl:Class .
+   :BasicType rdfs:subClassOf :DataType .         
+       :Null        rdfs:subClassOf :BasicType .
+       :Void        rdfs:subClassOf :BasicType .
+       :Boolean     rdfs:subClassOf :BasicType .
+            :False     rdfs:subClassOf :Boolean .
+            :True     rdfs:subClassOf :Boolean .
+       :Char          rdfs:subClassOf :BasicType .
+       :Double      rdfs:subClassOf :BasicType .       
+          :Float       rdfs:subClassOf :Double .
+       :Long        rdfs:subClassOf :BasicType .
+          :Integer     rdfs:subClassOf :Long .
+          :Short       rdfs:subClassOf :Integer .
+          :Byte        rdfs:subClassOf :Short .
+   :StructuredType rdfs:subClassOf :DataType .
+       :List        rdfs:subClassOf :StructuredType .
+       :Array       rdfs:subClassOf :StructuredType .
+   :AnotherType rdfs:subClassOf :DataType .
+
+:Domain    a owl:Class .
+     :Multimedia    rdfs:subClassOf :Domain .
+
+:Instance  a owl:Class .
+
+:Interface a owl:Class .
+
+:Interface rdfs:subClassOf 
+       [ a owl:Restriction ;
+           owl:onProperty :hasNumMethods ;
+           owl:minCardinality 1 ] .             # Restriccion sobre el numero de interfases   
+     :Provided    rdfs:subClassOf :Interface .
+     :Required    rdfs:subClassOf :Interface .
+     :Provided    owl:disjointWith :Required .
+     :Required    owl:disjointWith :Provided .
+
+:Method          a owl:Class .
+
+:Operator        a owl:Class .
+
+:OperatorLogic   a owl:Class .
+
+:Parameter       a owl:Class .
+
+:ParameterDirection    a owl:Class .
+     :Input       rdfs:subClassOf :ParameterDirection .
+     :OutPut      rdfs:subClassOf :ParameterDirection .
+     :InputOutput rdfs:subClassOf :ParameterDirection .      
+     
+:Pattern         a owl:Class .
+     :ArchitecturalPattern  rdfs:subClassOf :Pattern .
+     :DesignPattern         rdfs:subClassOf :Pattern .
+
+:Return          a owl:Class .
+
+:Requirements    a owl:Class .
+     :FunctionalRequirements        rdfs:subClassOf :Requirements .
+     :NonFunctionalRequirements_QoS rdfs:subClassOf :Requirements .
+     :AnswerTime        rdfs:subClassOf :NonFunctionalRequirements_QoS .
+     :ExecutionTime    rdfs:subClassOf :NonFunctionalRequirements_QoS .
+     :MemoryResource rdfs:subClassOf :NonFunctionalRequirements_QoS .
+     :Performance        rdfs:subClassOf :NonFunctionalRequirements_QoS .
+     :QoSAttribute       rdfs:subClassOf :NonFunctionalRequirements_QoS .
+     :QoSMetric           rdfs:subClassOf :NonFunctionalRequirements_QoS .
+     :Security              rdfs:subClassOf :NonFunctionalRequirements_QoS .
+
+:Variable        a owl:Class .
+
+:Visibility      a owl:Class .
+
+:Vocabulary  a owl:Class .  # Clase para verificar Dominios de Aplicacion
+                                           # Usando el archivo vocabularydomain.n3
+
+ # Quitar del archivo vocabularydomain.n3 los prefijos y el nombre de la clase
+ #   y ponerlos aqui!
+ #  @prefix      :   <http://www.ejemplo.org/#> .
+ #  @prefix owl:  <http://www.w3.org/2002/07/owl#>.
+ #  :Vocabulary  a owl:Class .
+
+#----------------------------------------------------------------------------------------------
+#-- Data type Properties Declaration ----------------------------------------------------------
+#----------------------------------------------------------------------------------------------
+
+ #-- Component properties ----------------------
+
+  :hasComponentID    a owl:DatatypeProperty .
+     :hasComponentID  rdfs:domain   :ComponentType .
+     :hasComponentID  rdfs:range xsd:string .  
+  :hasNameDomain     a owl:DatatypeProperty .
+     :hasNameDomain   rdfs:domain   :ComponentType .
+     :hasNameDomain   rdfs:range xsd:string .  
+  :hasNameSubDomain    a owl:DatatypeProperty .
+     :hasNameSubDomain rdfs:domain   :ComponentType .
+     :hasNameSubDomain rdfs:range xsd:string .  
+  :hasComponentName    a owl:DatatypeProperty .
+     :hasComponentName  rdfs:domain   :ComponentType .
+     :hasComponentName  rdfs:range xsd:string .  
+  :hasAuthorName       a owl:DatatypeProperty .
+     :hasAuthorName rdfs:domain   :ComponentType .
+     :hasAuthorName rdfs:range xsd:string .  
+  :hasCompanyName      a owl:DatatypeProperty .
+     :hasCompanyName rdfs:domain   :ComponentType .
+     :hasCompanyName rdfs:range xsd:string .  
+  :hasShortDescription a owl:DatatypeProperty .  
+  :hasAddress          a owl:DatatypeProperty .
+  :hasPhone            a owl:DatatypeProperty .
+  :hasFax              a owl:DatatypeProperty .
+  :hasEmail            a owl:DatatypeProperty .
+  :hasWebPage          a owl:DatatypeProperty .
+  :hasVersionDate      a owl:DatatypeProperty .
+  :hasVersionNumber    a owl:DatatypeProperty .
+  :hasRevisionNumber   a owl:DatatypeProperty . 
+  :hasRevisionDate     a owl:DatatypeProperty . 
+  :hasPrice            a owl:DatatypeProperty .
+  :hasNumberOfUsed     a owl:DatatypeProperty .
+
+ #-- Quality of Service (QoS) properties ----------
+
+  :needROM                 a owl:DatatypeProperty .      
+  :needRAM                 a owl:DatatypeProperty .
+  :hasResponseTime    a owl:DatatypeProperty .
+  :hardwarePlataform   a owl:DatatypeProperty .
+  :hasSizeInBytes         a owl:DatatypeProperty .
+
+ #-- Methods and Parameters -----------------------
+
+  :hasMethodName a owl:DatatypeProperty .
+  :hasMethodName  rdfs:domain   :Method .
+  :hasMethodName  rdfs:range xsd:string . 
+
+  :NomTypeRet    a owl:DatatypeProperty ;
+                  rdfs:domain   :Method ;
+                  rdfs:range xsd:string . 
+
+  :hasNumParMethod a owl:DatatypeProperty ;
+                     rdfs:domain   :Method ;
+                     rdfs:range xsd:string . 
+
+  :hasNumParameters a owl:DatatypeProperty .
+  :hasNumParameters  rdfs:domain   :Method .
+  :hasNumParameters  rdfs:range xsd:integer .   
+
+  :hasIndexOrder a owl:DatatypeProperty .
+  :hasIndexOrder  rdfs:domain   :Parameter .
+  :hasIndexOrder  rdfs:range xsd:integer .
+
+  :hasOSversion a owl:DatatypeProperty .
+  :hasOSversion  rdfs:domain   :OperatingSystem ;
+                 rdfs:range xsd:integer .
+
+ #-- Contracts, Precondition, Postcondition e Invariant -----------------
+ 
+  :hasPrecond  a owl:ObjectProperty ;
+                rdfs:domain   :Method ;
+                rdfs:range    :Condition ;
+                rdfs:label    "Object Property: :<Method> :hasPostcond :<Condition> ." ;
+                rdfs:comment  ":Deposit :hasPostcond :Condition1 .  ".                                   
+
+  :hasPostcond  a owl:ObjectProperty ;
+                 rdfs:domain   :Method ;
+                 rdfs:range    :Condition ;
+                 rdfs:label    "Object Property: :<Method> :hasPostcond :<Condition> ." ;
+                 rdfs:comment  ":Deposit :hasPostcond :Condition1 .  ".                                      
+
+  :hasInvariant  a owl:ObjectProperty ;  #-- No se puede definir una misma propiedad como Object and Datatype
+                  rdfs:domain   :Method ;       
+                  rdfs:domain   :Interface ;        
+                  rdfs:range    :Condition ;     
+                  rdfs:label    "Object Property: :<Method> :hasInvariant :<Condition> ." ;
+                  rdfs:comment  ":Deposit :hasInvariant :Condition2 .  ".               
+
+  :hasVariable   a owl:ObjectProperty ;        # El Dominio y el Rango pueden ser el mismo, 
+                   rdfs:domain   :Condition ;  # se vuelve recursivo
+                   rdfs:range    :Parameter ;
+                   rdfs:range    :Condition ;
+                   rdfs:range    :Variable .    
+ 
+  :hasVariable1  a owl:ObjectProperty ;        # El Dominio y el Rango pueden ser el mismo, 
+                   rdfs:domain   :Condition ;  # se vuelve recursivo
+                   rdfs:range    :Parameter ;
+                   rdfs:range    :Condition ;
+                   rdfs:range    :Variable .    
+
+ :hasVariableName1 a owl:DatatypeProperty ;
+                 rdfs:domain   :Condition ;
+                 rdfs:range xsd:string .
+                                 
+ :hasVariable2   a owl:ObjectProperty ;        
+                   rdfs:domain   :Condition ;  
+                   rdfs:range    :Parameter ;
+                   rdfs:range    :Condition ;
+                   rdfs:range    :Variable .          
+
+ :hasVariableName2 a owl:DatatypeProperty ;
+                 rdfs:domain   :Condition ;
+                 rdfs:range xsd:string .
+
+   :hasNumber   a owl:DatatypeProperty ;
+                 rdfs:domain   :Condition ;
+                 rdfs:range xsd:integer .
+                
+   :hasOperator  a owl:DatatypeProperty ;
+                  rdfs:domain   :Condition ;
+                  rdfs:range xsd:string .
+   
+   :hasArithmeticOperator a owl:DatatypeProperty ;
+                  rdfs:domain   :Condition ;
+                  rdfs:range xsd:string .
+
+   :hasCallMethod  a owl:DatatypeProperty ;
+                  rdfs:domain   :Condition ;
+                  rdfs:range   xsd:string .   
+
+   :hasCallMethod2  a owl:DatatypeProperty ;
+                  rdfs:domain   :Condition ;
+                  rdfs:range   xsd:string .   
+
+   :symbolOperator a owl:DatatypeProperty ;
+                  rdfs:domain   :OperatorLogic ;
+                  rdfs:range xsd:string .
+
+   :hasConnector a owl:ObjectProperty ;         # Permite unir 2 condiciones por medio de 
+                  rdfs:domain   :Condition ;            # 1 conector logico and o or
+                  rdfs:range    :OperatorLogic .      # or o and     
+        
+   :hasConstant   a owl:DatatypeProperty ;        # Una Invariante o Precondicion puede ser Texto
+                  rdfs:domain   xsd:string .         # una constante true, false o empty (cadena vacia)
+                  
+ #-----------------------------------------------   rdfs:range  xsd:string .   
+
+   :hasVarName a owl:ObjectProperty ;
+                rdfs:domain :Condition ; 
+                rdfs:range  :Variable .      
+
+ #-- Interface ----------------------------------------------------------
+
+  :hasInterfaceName a owl:DatatypeProperty ;
+                     rdfs:domain   :Interface ;   #Decia :Method
+                     rdfs:range xsd:string . 
+  
+  :hasNumMethods   a owl:DatatypeProperty ;
+                    rdfs:domain   :Interface ;
+                    rdfs:range xsd:integer .  
+
+  :hasReturnValue a owl:DatatypeProperty ;
+                   rdfs:domain   :Interface ;
+                   rdfs:range xsd:boolean .  
+
+  :optionalParameter a owl:DatatypeProperty ;  
+                      rdfs:domain   :Method ;
+                      rdfs:range xsd:boolean .
+
+ #-- hasNamePattern & hasTypeNamePattern --------------------------------
+
+  :hasNamePattern a owl:DatatypeProperty ; 
+                   rdfs:domain   :ComponentType .
+
+  :hasNameDomain  a owl:DatatypeProperty ;
+                   rdfs:domain   :ComponentType ;
+                  rdfs:range  xsd:string .
+
+  :hasNameSubDomain a owl:DatatypeProperty ;
+                     rdfs:domain   :ComponentType ;
+                     rdfs:range xsd:string .
+
+  :hasNameSubSubDomain a owl:DatatypeProperty ;
+                     rdfs:domain   :ComponentType ;
+                     rdfs:range xsd:string .
+#----------------------------------------------------------------------------------------------
+#-- Object Property Declaration ---------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
+
+  #-- useInterface ---------------------------------
+
+  :useInterface  rdf:type owl:ObjectProperty ;
+                rdfs:domain :Contract ;
+                rdfs:range  :Interface .
+
+  #-- isInterfaceOf ---------------------------------
+
+  :isInterfaceOf rdf:type owl:ObjectProperty ;
+                rdfs:domain :Interface ;
+                rdfs:range  :Component .
+
+  #-- linkParameter ---------------------------------
+
+  :linkParameter rdfs:domain :Parameter ;
+                 rdfs:range  :Parameter ;
+                  rdf:type owl:ObjectProperty .
+
+  :hasContract rdf:type owl:ObjectProperty ;
+              rdfs:domain :Component ;
+              rdfs:range  :Contract ;
+               rdf:type owl:FunctionalProperty .
+
+  :isInstanceOf rdf:type owl:ObjectProperty .
+  :isInstanceOf rdfs:domain :Instance .
+  :isInstanceOf rdfs:range  :Component .
+
+  #-- Parameters -----------------------------------
+
+  :hasNameDir a owl:DatatypeProperty ;
+               rdfs:domain   :Parameter ;
+               rdfs:range xsd:string .
+
+  :hasNameTypePar a owl:DatatypeProperty ;
+                   rdfs:domain   :Parameter ;
+                   rdfs:range xsd:string .
+
+  :hasNameIndex  a owl:DatatypeProperty ;
+                  rdfs:domain   :Parameter ;
+                  rdfs:range xsd:string .
+
+  :hasDirection rdf:type  owl:ObjectProperty ;
+               rdfs:domain   :Parameter ;
+               rdfs:range    :ParameterDirection .
+
+  :isInputOf rdf:type  owl:ObjectProperty ;
+            rdfs:domain   :Parameter ;
+            rdfs:range   :Parameter .
+
+  :isOutputOf rdf:type owl:ObjectProperty ;
+             rdfs:domain  :Parameter ;
+             rdfs:range   :Parameter .
+
+  #-- typeReturn -----------------------------------
+
+  :typeReturn  rdf:type owl:ObjectProperty ;
+              rdfs:domain  :Method ;
+              rdfs:range   :DataType .
+
+  :hasDataTypeParameter rdf:type owl:ObjectProperty ;
+                rdfs:domain  :Parameter ;
+                rdfs:range   :DataType .
+
+  :typeInterface rdf:type owl:ObjectProperty ;
+                rdfs:domain  :Interface ;
+                rdfs:range   :DataType .
+
+  #-- hasMethod ----------------------------------
+
+  :hasMethod a owl:ObjectProperty ;
+              rdfs:domain :Interface ;
+              rdfs:range  :Method .    
+
+  :hasMethod2 a owl:ObjectProperty ;
+              rdfs:domain :Interface ;
+              rdfs:range  :Method .    
+
+  :hasReturn a owl:ObjectProperty ;
+              rdfs:domain :Method ;
+              rdfs:range  :DataType .             
+
+  :hasVisibility  rdf:type owl:ObjectProperty .
+  :hasVisibility rdfs:domain  :Method .
+  :hasVisibility rdfs:domain  :Interface .
+  :hasVisibility rdfs:range   :Visibility .
+
+  :hasMatch  rdf:type owl:ObjectProperty .    #-- It is a Object Property. FunctionalProperty only 1 value accept
+  :hasMatch rdfs:domain :Interface .          #-- Its domain is an Interface
+  :hasMatch rdfs:range  :Interface .          #-- Its range is an Interface
+  :hasMatch rdf:type owl:TransitiveProperty . #-- A match B and B match C => A match C
+  :hasMatch rdf:type owl:SymmetricProperty .  #-- A match B => B match A
+  
+  :hasInstance a owl:ObjectProperty .
+  :hasInstance  rdfs:domain :Component .
+  :hasInstance  rdfs:range  :Instance .
+
+  :hasInterface a owl:ObjectProperty .
+  :hasInterface  rdfs:domain :Component .
+  :hasInterface  rdfs:range  :Interface .
+
+  :hasParameter a owl:ObjectProperty .
+  :hasParameter  rdfs:domain :Method .
+  :hasParameter  rdfs:range  :Parameter .
+
+  :hasParameterName a owl:DatatypeProperty ;
+             rdfs:domain :Method ;
+             rdfs:range  xsd:string .
+
+  :hasNameParameter a owl:DatatypeProperty ;
+                  rdfs:domain   :Parameter ;
+                  rdfs:range xsd:string .
+
+#---- Seccion de codigos para controlar el backtrack de SPARQL
+
+  :hasCodeParameter a owl:DatatypeProperty ;
+                  rdfs:domain   :Parameter ;
+                  rdfs:range xsd:string .
+
+  :hasCodeMethod  a owl:DatatypeProperty ;
+                  rdfs:domain   :Method ;
+                  rdfs:range xsd:string .
+
+  :hasCodeType   a owl:DatatypeProperty ;
+                  rdfs:domain   :Parameter ;
+                  rdfs:range xsd:string .
+
+  :hasCodeIndex  a owl:DatatypeProperty ;
+                  rdfs:domain   :Parameter ;
+                  rdfs:range xsd:string .
+#-- isSubTypeOf -----------------------------------  
+
+   :isSubTypeOf a owl:ObjectProperty ;
+                  rdfs:domain :DataType ;
+                  rdfs:range  :Datatype .
+
+  :int    a :DataType .
+  :long   a :DataType .
+  :char   a :DataType .
+  :string a :DataType .
+
+  :int    :isSubTypeOf :long .
+  :char   :isSubTypeOf :string .
+  :int    :isSubTypeOf :int .
+  :long   :isSubTypeOf :long .
+  :char   :isSubTypeOf :char .
+  :string :isSubTypeOf :string .
+#---------------------------------------------------- 
+   
+
+############################## Codigo del Archivo Ontologia: Atm.n3 #######################
+
+:atm a :ComponentType .
+:atm :hasComponentName "atm" .
+:atm :hasDomain :bank .
+:atm :hasNameDomain "bank" .
+:atm :hasSubDomain :atm .
+:atm :hasNameSubDomain "atm" .
+:iatmuser863  a :Interface .
+:iatmuser863  :typeInterface :required .
+:atm  :hasInterface :iatmuser863 .
+:iatmuser863  :hasInterfaceName "iatmuser" .
+:iatmuser863  :hasMethod :readpin863 .
+:iatmuser863  :hasMethod2 :readpin .
+:readpin  :hasMethodName "readpin" .
+:readpin863  :hasMethodName "readpin" .
+:readpin863  a :Method .
+:readpin863  :typeReturn :void.
+:readpin863  :NomTypeRet "void".
+:readpin863  :hasParameter  :cardno863 .
+:readpin863  :hasParameterName  "cardno1" .
+:cardno863  :hasNameParameter "cardno1" .
+:cardno863  :hasDirection  :in .
+:cardno863  :hasNameDir "in" .
+:int a :Int .
+:cardno863  :hasDataTypeParameter  :int .
+:cardno863  :hasNameTypePar "int1" .
+:cardno863  :hasIndexOrder 1 .
+:cardno863  :hasNameIndex  "1" .
+:readpin863  :hasParameter  :password863 .
+:readpin863  :hasParameterName  "password2" .
+:password863  :hasNameParameter "password2" .
+:password863  :hasDirection  :in .
+:password863  :hasNameDir "in" .
+:string a :String .
+:password863  :hasDataTypeParameter  :string .
+:password863  :hasNameTypePar "string2" .
+:password863  :hasIndexOrder 2 .
+:password863  :hasNameIndex  "2" .
+:readpin863  :hasNumParameters  2 .
+:readpin863  :hasNumParMethod  "2" .
+:iatmuser863  :hasInterfaceName "iatmuser" .
+:iatmuser863  :hasMethod :setmenu863 .
+:iatmuser863  :hasMethod2 :setmenu .
+:setmenu  :hasMethodName "setmenu" .
+:setmenu863  :hasMethodName "setmenu" .
+:setmenu863  a :Method .
+:setmenu863  :typeReturn :void.
+:setmenu863  :NomTypeRet "void".
+:setmenu863  :hasNumParameters  0 .
+:setmenu863  :hasNumParMethod  "0" .
+:iatmuser863  :hasInterfaceName "iatmuser" .
+:iatmuser863  :hasMethod :setmessages863 .
+:iatmuser863  :hasMethod2 :setmessages .
+:setmessages  :hasMethodName "setmessages" .
+:setmessages863  :hasMethodName "setmessages" .
+:setmessages863  a :Method .
+:setmessages863  :typeReturn :void.
+:setmessages863  :NomTypeRet "void".
+:setmessages863  :hasNumParameters  0 .
+:setmessages863  :hasNumParMethod  "0" .
+:iatmuser  :hasNumMethods 3 .
+:iatmprinter111  a :Interface .
+:iatmprinter111  :typeInterface :required .
+:atm  :hasInterface :iatmprinter111 .
+:iatmprinter111  :hasInterfaceName "iatmprinter" .
+:iatmprinter111  :hasMethod :printreceipt111 .
+:iatmprinter111  :hasMethod2 :printreceipt .
+:printreceipt  :hasMethodName "printreceipt" .
+:printreceipt111  :hasMethodName "printreceipt" .
+:printreceipt111  a :Method .
+:printreceipt111  :typeReturn :void.
+:printreceipt111  :NomTypeRet "void".
+:printreceipt111  :hasNumParameters  0 .
+:printreceipt111  :hasNumParMethod  "0" .
+:iatmprinter  :hasNumMethods 1 .
+:iatmbank154  a :Interface .
+:iatmbank154  :typeInterface :required .
+:atm  :hasInterface :iatmbank154 .
+:condition1  a :Condition .
+:iatmbank  :hasInvariant :condition1 .
+:condition1   :hasCallMethod "balance()" .
+:condition1  :hasOperator ">=" .
+:condition1   :hasCallMethod2 "creditlimit()" .
+:iatmbank154  :hasInterfaceName "iatmbank" .
+:iatmbank154  :hasMethod :deposit154 .
+:iatmbank154  :hasMethod2 :deposit .
+:deposit  :hasMethodName "deposit" .
+:deposit154  :hasMethodName "deposit" .
+:deposit154  a :Method .
+:deposit154  :typeReturn :void.
+:deposit154  :NomTypeRet "void".
+:deposit154  :hasParameter  :clientnum154 .
+:deposit154  :hasParameterName  "clientnum1" .
+:clientnum154  :hasNameParameter "clientnum1" .
+:clientnum154  :hasDirection  :in .
+:clientnum154  :hasNameDir "in" .
+:int a :Int .
+:clientnum154  :hasDataTypeParameter  :int .
+:clientnum154  :hasNameTypePar "int1" .
+:clientnum154  :hasIndexOrder 1 .
+:clientnum154  :hasNameIndex  "1" .
+:deposit154  :hasParameter  :amount154 .
+:deposit154  :hasParameterName  "amount2" .
+:amount154  :hasNameParameter "amount2" .
+:amount154  :hasDirection  :in .
+:amount154  :hasNameDir "in" .
+:int a :Int .
+:amount154  :hasDataTypeParameter  :int .
+:amount154  :hasNameTypePar "int2" .
+:amount154  :hasIndexOrder 2 .
+:amount154  :hasNameIndex  "2" .
+:deposit154  :hasNumParameters  2 .
+:deposit154  :hasNumParMethod  "2" .
+:condition2  a :Condition .
+:deposit154  :hasPrecond :condition2 .
+:condition2   :hasVariable :amount .
+:condition2   :hasVariableName "amount" .
+:condition2   :hasOperator ">" .
+:condition2   :hasNumber 0 .
+:condition3  a :Condition .
+:deposit154  :hasPrecond :condition3 .
+:condition3   :hasCallMethod "validclient(clientnum)" .
+:condition3  :hasOperator "==" .
+:true   a :DataType .
+:condition3 :hasConstant "true" .
+:condition4  a :Condition .
+:deposit154  :hasPostcond :condition4 .
+:condition4   :hasVariable :selfamount .
+:condition4   :hasVariableName "selfamount" .
+:condition4  :hasOperator "=" .
+:condition4   :hasVariable1 :selfamount .
+:condition4   :hasVariableName1 "selfamount" .
+:condition4   :hasArithmeticOperator "+" .
+:amount   a :Variable .
+:condition4   :hasVariable2 :amount .
+:condition4   :hasVariableName2 "amount" .
+:iatmbank154  :hasInterfaceName "iatmbank" .
+:iatmbank154  :hasMethod :withdrawal154 .
+:iatmbank154  :hasMethod2 :withdrawal .
+:withdrawal  :hasMethodName "withdrawal" .
+:withdrawal154  :hasMethodName "withdrawal" .
+:withdrawal154  a :Method .
+:withdrawal154  :typeReturn :void.
+:withdrawal154  :NomTypeRet "void".
+:withdrawal154  :hasParameter  :cardno154 .
+:withdrawal154  :hasParameterName  "cardno1" .
+:cardno154  :hasNameParameter "cardno1" .
+:cardno154  :hasDirection  :out .
+:cardno154  :hasNameDir "out" .
+:int a :Int .
+:cardno154  :hasDataTypeParameter  :int .
+:cardno154  :hasNameTypePar "int1" .
+:cardno154  :hasIndexOrder 1 .
+:cardno154  :hasNameIndex  "1" .
+:withdrawal154  :hasParameter  :password154 .
+:withdrawal154  :hasParameterName  "password2" .
+:password154  :hasNameParameter "password2" .
+:password154  :hasDirection  :in .
+:password154  :hasNameDir "in" .
+:string a :String .
+:password154  :hasDataTypeParameter  :string .
+:password154  :hasNameTypePar "string2" .
+:password154  :hasIndexOrder 2 .
+:password154  :hasNameIndex  "2" .
+:withdrawal154  :hasParameter  :amount154 .
+:withdrawal154  :hasParameterName  "amount3" .
+:amount154  :hasNameParameter "amount3" .
+:amount154  :hasDirection  :in .
+:amount154  :hasNameDir "in" .
+:int a :Int .
+:amount154  :hasDataTypeParameter  :int .
+:amount154  :hasNameTypePar "int3" .
+:amount154  :hasIndexOrder 3 .
+:amount154  :hasNameIndex  "3" .
+:withdrawal154  :hasNumParameters  3 .
+:withdrawal154  :hasNumParMethod  "3" .
+:condition5  a :Condition .
+:withdrawal154  :hasPrecond :condition5 .
+:condition5   :hasVariable :selfamount .
+:condition5   :hasVariableName "selfamount" .
+:condition5  :hasOperator ">=" .
+:amount   a :Variable .
+:condition5   :hasVariable2 :amount .
+:condition5   :hasVariableName2 "amount" .
+:condition6  a :Condition .
+:withdrawal154  :hasPrecond :condition6 .
+:condition6   :hasVariable :password .
+:condition6   :hasVariableName "password" .
+:condition6  :hasOperator "<>" .
+:empty   a :DataType .
+:condition6 :hasConstant "empty" .
+:condition7  a :Condition .
+:withdrawal154  :hasPrecond :condition7 .
+:condition7   :hasCallMethod "validcard(cardno)" .
+:condition7  :hasOperator "==" .
+:true   a :DataType .
+:condition7 :hasConstant "true" .
+:condition8  a :Condition .
+:withdrawal154  :hasPostcond :condition8 .
+:condition8   :hasVariable :selfamount .
+:condition8   :hasVariableName "selfamount" .
+:condition8  :hasOperator "=" .
+:condition8   :hasVariable1 :selfamount .
+:condition8   :hasVariableName1 "selfamount" .
+:condition8   :hasArithmeticOperator "-" .
+:amount   a :Variable .
+:condition8   :hasVariable2 :amount .
+:condition8   :hasVariableName2 "amount" .
+:condition9  a :Condition .
+:withdrawal154  :hasInvariant :condition9 .
+:condition9   :hasCallMethod "length(password)" .
+:condition9   :hasOperator ">" .
+:condition9   :hasNumber 5 .
+:iatmbank154  :hasInterfaceName "iatmbank" .
+:iatmbank154  :hasMethod :createsession154 .
+:iatmbank154  :hasMethod2 :createsession .
+:createsession  :hasMethodName "createsession" .
+:createsession154  :hasMethodName "createsession" .
+:createsession154  a :Method .
+:createsession154  :typeReturn :void.
+:createsession154  :NomTypeRet "void".
+:createsession154  :hasNumParameters  0 .
+:createsession154  :hasNumParMethod  "0" .
+:iatmbank154  :hasInterfaceName "iatmbank" .
+:iatmbank154  :hasMethod :locatebank154 .
+:iatmbank154  :hasMethod2 :locatebank .
+:locatebank  :hasMethodName "locatebank" .
+:locatebank154  :hasMethodName "locatebank" .
+:locatebank154  a :Method .
+:locatebank154  :typeReturn :void.
+:locatebank154  :NomTypeRet "void".
+:locatebank154  :hasNumParameters  0 .
+:locatebank154  :hasNumParMethod  "0" .
+:iatmbank  :hasNumMethods 4 .
+:iatmcard905  a :Interface .
+:iatmcard905  :typeInterface :required .
+:atm  :hasInterface :iatmcard905 .
+:iatmcard905  :hasInterfaceName "iatmcard" .
+:iatmcard905  :hasMethod :readcard905 .
+:iatmcard905  :hasMethod2 :readcard .
+:readcard  :hasMethodName "readcard" .
+:readcard905  :hasMethodName "readcard" .
+:readcard905  a :Method .
+:readcard905  :typeReturn :void.
+:readcard905  :NomTypeRet "void".
+:readcard905  :hasParameter  :cardno905 .
+:readcard905  :hasParameterName  "cardno1" .
+:cardno905  :hasNameParameter "cardno1" .
+:cardno905  :hasDirection  :in .
+:cardno905  :hasNameDir "in" .
+:int a :Int .
+:cardno905  :hasDataTypeParameter  :int .
+:cardno905  :hasNameTypePar "int1" .
+:cardno905  :hasIndexOrder 1 .
+:cardno905  :hasNameIndex  "1" .
+:readcard905  :hasParameter  :password905 .
+:readcard905  :hasParameterName  "password2" .
+:password905  :hasNameParameter "password2" .
+:password905  :hasDirection  :in .
+:password905  :hasNameDir "in" .
+:string a :String .
+:password905  :hasDataTypeParameter  :string .
+:password905  :hasNameTypePar "string2" .
+:password905  :hasIndexOrder 2 .
+:password905  :hasNameIndex  "2" .
+:readcard905  :hasNumParameters  2 .
+:readcard905  :hasNumParMethod  "2" .
+:iatmcard905  :hasInterfaceName "iatmcard" .
+:iatmcard905  :hasMethod :ejectcard905 .
+:iatmcard905  :hasMethod2 :ejectcard .
+:ejectcard  :hasMethodName "ejectcard" .
+:ejectcard905  :hasMethodName "ejectcard" .
+:ejectcard905  a :Method .
+:ejectcard905  :typeReturn :void.
+:ejectcard905  :NomTypeRet "void".
+:ejectcard905  :hasNumParameters  0 .
+:ejectcard905  :hasNumParMethod  "0" .
+:iatmcard905  :hasInterfaceName "iatmcard" .
+:iatmcard905  :hasMethod :consortium905 .
+:iatmcard905  :hasMethod2 :consortium .
+:consortium  :hasMethodName "consortium" .
+:consortium905  :hasMethodName "consortium" .
+:consortium905  a :Method .
+:consortium905  :typeReturn :void.
+:consortium905  :NomTypeRet "void".
+:consortium905  :hasNumParameters  0 .
+:consortium905  :hasNumParMethod  "0" .
+:iatmcard  :hasNumMethods 3 .
+
+############################## Codigo del Archivo Ontologia: Bank.n3 #######################
+
+:bank a :ComponentType .
+:bank :hasComponentName "bank" .
+:bank :hasDomain :bank .
+:bank :hasNameDomain "bank" .
+:bank :hasSubDomain :atm .
+:bank :hasNameSubDomain "atm" .
+:ibank608  a :Interface .
+:ibank608  :typeInterface :provided .
+:bank  :hasInterface :ibank608 .
+:condition10  a :Condition .
+:ibank  :hasInvariant :condition10 .
+:condition10   :hasCallMethod "balance()" .
+:condition10  :hasOperator ">=" .
+:condition10   :hasCallMethod2 "creditlimit()" .
+:ibank608  :hasInterfaceName "ibank" .
+:ibank608  :hasMethod :deposit608 .
+:ibank608  :hasMethod2 :deposit .
+:deposit  :hasMethodName "deposit" .
+:deposit608  :hasMethodName "deposit" .
+:deposit608  a :Method .
+:deposit608  :typeReturn :void.
+:deposit608  :NomTypeRet "void".
+:deposit608  :hasParameter  :clientnum608 .
+:deposit608  :hasParameterName  "clientnum1" .
+:clientnum608  :hasNameParameter "clientnum1" .
+:clientnum608  :hasDirection  :in .
+:clientnum608  :hasNameDir "in" .
+:int a :Int .
+:clientnum608  :hasDataTypeParameter  :int .
+:clientnum608  :hasNameTypePar "int1" .
+:clientnum608  :hasIndexOrder 1 .
+:clientnum608  :hasNameIndex  "1" .
+:deposit608  :hasParameter  :amount608 .
+:deposit608  :hasParameterName  "amount2" .
+:amount608  :hasNameParameter "amount2" .
+:amount608  :hasDirection  :in .
+:amount608  :hasNameDir "in" .
+:string a :String .
+:amount608  :hasDataTypeParameter  :string .
+:amount608  :hasNameTypePar "string2" .
+:amount608  :hasIndexOrder 2 .
+:amount608  :hasNameIndex  "2" .
+:deposit608  :hasNumParameters  2 .
+:deposit608  :hasNumParMethod  "2" .
+:condition11  a :Condition .
+:deposit608  :hasPrecond :condition11 .
+:condition11   :hasVariable :amount .
+:condition11   :hasVariableName "amount" .
+:condition11   :hasOperator ">" .
+:condition11   :hasNumber 0 .
+:condition12  a :Condition .
+:deposit608  :hasPrecond :condition12 .
+:condition12   :hasCallMethod "validclient(clientnum)" .
+:condition12  :hasOperator "==" .
+:true   a :DataType .
+:condition12 :hasConstant "true" .
+:condition13  a :Condition .
+:deposit608  :hasPostcond :condition13 .
+:condition13   :hasVariable :selfamount .
+:condition13   :hasVariableName "selfamount" .
+:condition13  :hasOperator "=" .
+:condition13   :hasVariable1 :selfamount .
+:condition13   :hasVariableName1 "selfamount" .
+:condition13   :hasArithmeticOperator "+" .
+:amount   a :Variable .
+:condition13   :hasVariable2 :amount .
+:condition13   :hasVariableName2 "amount" .
+:ibank608  :hasInterfaceName "ibank" .
+:ibank608  :hasMethod :withdrawal608 .
+:ibank608  :hasMethod2 :withdrawal .
+:withdrawal  :hasMethodName "withdrawal" .
+:withdrawal608  :hasMethodName "withdrawal" .
+:withdrawal608  a :Method .
+:withdrawal608  :typeReturn :void.
+:withdrawal608  :NomTypeRet "void".
+:withdrawal608  :hasParameter  :cardno608 .
+:withdrawal608  :hasParameterName  "cardno1" .
+:cardno608  :hasNameParameter "cardno1" .
+:cardno608  :hasDirection  :out .
+:cardno608  :hasNameDir "out" .
+:int a :Int .
+:cardno608  :hasDataTypeParameter  :int .
+:cardno608  :hasNameTypePar "int1" .
+:cardno608  :hasIndexOrder 1 .
+:cardno608  :hasNameIndex  "1" .
+:withdrawal608  :hasParameter  :password608 .
+:withdrawal608  :hasParameterName  "password2" .
+:password608  :hasNameParameter "password2" .
+:password608  :hasDirection  :in .
+:password608  :hasNameDir "in" .
+:string a :String .
+:password608  :hasDataTypeParameter  :string .
+:password608  :hasNameTypePar "string2" .
+:password608  :hasIndexOrder 2 .
+:password608  :hasNameIndex  "2" .
+:withdrawal608  :hasParameter  :amount608 .
+:withdrawal608  :hasParameterName  "amount3" .
+:amount608  :hasNameParameter "amount3" .
+:amount608  :hasDirection  :in .
+:amount608  :hasNameDir "in" .
+:int a :Int .
+:amount608  :hasDataTypeParameter  :int .
+:amount608  :hasNameTypePar "int3" .
+:amount608  :hasIndexOrder 3 .
+:amount608  :hasNameIndex  "3" .
+:withdrawal608  :hasNumParameters  3 .
+:withdrawal608  :hasNumParMethod  "3" .
+:condition14  a :Condition .
+:withdrawal608  :hasPrecond :condition14 .
+:condition14   :hasVariable :selfamount .
+:condition14   :hasVariableName "selfamount" .
+:condition14  :hasOperator ">=" .
+:amount   a :Variable .
+:condition14   :hasVariable2 :amount .
+:condition14   :hasVariableName2 "amount" .
+:condition15  a :Condition .
+:withdrawal608  :hasPrecond :condition15 .
+:condition15   :hasVariable :password .
+:condition15   :hasVariableName "password" .
+:condition15  :hasOperator "<>" .
+:empty   a :DataType .
+:condition15 :hasConstant "empty" .
+:condition16  a :Condition .
+:withdrawal608  :hasPrecond :condition16 .
+:condition16   :hasCallMethod "validcard(cardno)" .
+:condition16  :hasOperator "==" .
+:true   a :DataType .
+:condition16 :hasConstant "true" .
+:condition17  a :Condition .
+:withdrawal608  :hasPostcond :condition17 .
+:condition17   :hasVariable :selfamount .
+:condition17   :hasVariableName "selfamount" .
+:condition17  :hasOperator "=" .
+:condition17   :hasVariable1 :selfamount .
+:condition17   :hasVariableName1 "selfamount" .
+:condition17   :hasArithmeticOperator "-" .
+:amount   a :Variable .
+:condition17   :hasVariable2 :amount .
+:condition17   :hasVariableName2 "amount" .
+:condition18  a :Condition .
+:withdrawal608  :hasInvariant :condition18 .
+:condition18   :hasCallMethod "length(password)" .
+:condition18   :hasOperator ">" .
+:condition18   :hasNumber 5 .
+:ibank608  :hasInterfaceName "ibank" .
+:ibank608  :hasMethod :createsession608 .
+:ibank608  :hasMethod2 :createsession .
+:createsession  :hasMethodName "createsession" .
+:createsession608  :hasMethodName "createsession" .
+:createsession608  a :Method .
+:createsession608  :typeReturn :void.
+:createsession608  :NomTypeRet "void".
+:createsession608  :hasNumParameters  0 .
+:createsession608  :hasNumParMethod  "0" .
+:ibank608  :hasInterfaceName "ibank" .
+:ibank608  :hasMethod :locatebank608 .
+:ibank608  :hasMethod2 :locatebank .
+:locatebank  :hasMethodName "locatebank" .
+:locatebank608  :hasMethodName "locatebank" .
+:locatebank608  a :Method .
+:locatebank608  :typeReturn :void.
+:locatebank608  :NomTypeRet "void".
+:locatebank608  :hasNumParameters  0 .
+:locatebank608  :hasNumParMethod  "0" .
+:ibank  :hasNumMethods 4 .
+
+############################## Codigo del Archivo Ontologia: Card.n3 #######################
+
+:card a :ComponentType .
+:card :hasComponentName "card" .
+:card :hasDomain :card .
+:card :hasNameDomain "card" .
+:card :hasSubDomain :atm .
+:card :hasNameSubDomain "atm" .
+:icard836  a :Interface .
+:icard836  :typeInterface :provided .
+:card  :hasInterface :icard836 .
+:icard836  :hasInterfaceName "icard" .
+:icard836  :hasMethod :readcard836 .
+:icard836  :hasMethod2 :readcard .
+:readcard  :hasMethodName "readcard" .
+:readcard836  :hasMethodName "readcard" .
+:readcard836  a :Method .
+:readcard836  :typeReturn :void.
+:readcard836  :NomTypeRet "void".
+:readcard836  :hasParameter  :cardno836 .
+:readcard836  :hasParameterName  "cardno1" .
+:cardno836  :hasNameParameter "cardno1" .
+:cardno836  :hasDirection  :in .
+:cardno836  :hasNameDir "in" .
+:int a :Int .
+:cardno836  :hasDataTypeParameter  :int .
+:cardno836  :hasNameTypePar "int1" .
+:cardno836  :hasIndexOrder 1 .
+:cardno836  :hasNameIndex  "1" .
+:readcard836  :hasParameter  :password836 .
+:readcard836  :hasParameterName  "password2" .
+:password836  :hasNameParameter "password2" .
+:password836  :hasDirection  :in .
+:password836  :hasNameDir "in" .
+:string a :String .
+:password836  :hasDataTypeParameter  :string .
+:password836  :hasNameTypePar "string2" .
+:password836  :hasIndexOrder 2 .
+:password836  :hasNameIndex  "2" .
+:readcard836  :hasNumParameters  2 .
+:readcard836  :hasNumParMethod  "2" .
+:icard836  :hasInterfaceName "icard" .
+:icard836  :hasMethod :ejectcard836 .
+:icard836  :hasMethod2 :ejectcard .
+:ejectcard  :hasMethodName "ejectcard" .
+:ejectcard836  :hasMethodName "ejectcard" .
+:ejectcard836  a :Method .
+:ejectcard836  :typeReturn :void.
+:ejectcard836  :NomTypeRet "void".
+:ejectcard836  :hasNumParameters  0 .
+:ejectcard836  :hasNumParMethod  "0" .
+:icard836  :hasInterfaceName "icard" .
+:icard836  :hasMethod :consortium836 .
+:icard836  :hasMethod2 :consortium .
+:consortium  :hasMethodName "consortium" .
+:consortium836  :hasMethodName "consortium" .
+:consortium836  a :Method .
+:consortium836  :typeReturn :void.
+:consortium836  :NomTypeRet "void".
+:consortium836  :hasNumParameters  0 .
+:consortium836  :hasNumParMethod  "0" .
+:icard  :hasNumMethods 3 .
+
+############################## Codigo del Archivo Ontologia: Printer.n3 #######################
+
+:printer a :ComponentType .
+:printer :hasComponentName "printer" .
+:printer :hasDomain :printer .
+:printer :hasNameDomain "printer" .
+:printer :hasSubDomain :atm .
+:printer :hasNameSubDomain "atm" .
+:iprinter403  a :Interface .
+:iprinter403  :typeInterface :provided .
+:printer  :hasInterface :iprinter403 .
+:iprinter403  :hasInterfaceName "iprinter" .
+:iprinter403  :hasMethod :printreceipt403 .
+:iprinter403  :hasMethod2 :printreceipt .
+:printreceipt  :hasMethodName "printreceipt" .
+:printreceipt403  :hasMethodName "printreceipt" .
+:printreceipt403  a :Method .
+:printreceipt403  :typeReturn :void.
+:printreceipt403  :NomTypeRet "void".
+:printreceipt403  :hasNumParameters  0 .
+:printreceipt403  :hasNumParMethod  "0" .
+:iprinter  :hasNumMethods 1 .
+
+############################## Codigo del Archivo Ontologia: UserConsole.n3 #######################
+
+:userconsole a :ComponentType .
+:userconsole :hasComponentName "userconsole" .
+:userconsole :hasDomain :atm .
+:userconsole :hasNameDomain "atm" .
+:userconsole :hasSubDomain :keyboard .
+:userconsole :hasNameSubDomain "keyboard" .
+:iuserconsole380  a :Interface .
+:iuserconsole380  :typeInterface :provided .
+:userconsole  :hasInterface :iuserconsole380 .
+:iuserconsole380  :hasInterfaceName "iuserconsole" .
+:iuserconsole380  :hasMethod :readpin380 .
+:iuserconsole380  :hasMethod2 :readpin .
+:readpin  :hasMethodName "readpin" .
+:readpin380  :hasMethodName "readpin" .
+:readpin380  a :Method .
+:readpin380  :typeReturn :void.
+:readpin380  :NomTypeRet "void".
+:readpin380  :hasParameter  :cardno380 .
+:readpin380  :hasParameterName  "cardno1" .
+:cardno380  :hasNameParameter "cardno1" .
+:cardno380  :hasDirection  :in .
+:cardno380  :hasNameDir "in" .
+:int a :Int .
+:cardno380  :hasDataTypeParameter  :int .
+:cardno380  :hasNameTypePar "int1" .
+:cardno380  :hasIndexOrder 1 .
+:cardno380  :hasNameIndex  "1" .
+:readpin380  :hasParameter  :password380 .
+:readpin380  :hasParameterName  "password2" .
+:password380  :hasNameParameter "password2" .
+:password380  :hasDirection  :in .
+:password380  :hasNameDir "in" .
+:string a :String .
+:password380  :hasDataTypeParameter  :string .
+:password380  :hasNameTypePar "string2" .
+:password380  :hasIndexOrder 2 .
+:password380  :hasNameIndex  "2" .
+:readpin380  :hasNumParameters  2 .
+:readpin380  :hasNumParMethod  "2" .
+:iuserconsole380  :hasInterfaceName "iuserconsole" .
+:iuserconsole380  :hasMethod :setmenu380 .
+:iuserconsole380  :hasMethod2 :setmenu .
+:setmenu  :hasMethodName "setmenu" .
+:setmenu380  :hasMethodName "setmenu" .
+:setmenu380  a :Method .
+:setmenu380  :typeReturn :void.
+:setmenu380  :NomTypeRet "void".
+:setmenu380  :hasNumParameters  0 .
+:setmenu380  :hasNumParMethod  "0" .
+:iuserconsole380  :hasInterfaceName "iuserconsole" .
+:iuserconsole380  :hasMethod :setmessages380 .
+:iuserconsole380  :hasMethod2 :setmessages .
+:setmessages  :hasMethodName "setmessages" .
+:setmessages380  :hasMethodName "setmessages" .
+:setmessages380  a :Method .
+:setmessages380  :typeReturn :void.
+:setmessages380  :NomTypeRet "void".
+:setmessages380  :hasNumParameters  0 .
+:setmessages380  :hasNumParMethod  "0" .
+:iuserconsole  :hasNumMethods 3 .
