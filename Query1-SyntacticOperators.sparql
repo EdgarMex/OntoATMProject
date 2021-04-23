@@ -1,0 +1,94 @@
+
+PREFIX   : <http://www.ejemplo.org/#> 
+PREFIX fn: <http://www.w3.org/2005/xpath-functions#>
+   
+SELECT DISTINCT ?ErrorMessage WHERE
+{     
+         ?naminter1 :typeInterface :required ;
+                    :hasInterfaceName ?nameinterface1 ;
+                    :hasMethod ?MethodInterface1 .
+
+       ?MethodInterface1 :hasMethodName ?NameMethod ;
+                         :hasNumParMethod ?numparm1 ;
+                         :NomTypeRet ?nametyperet1 .
+                        
+       OPTIONAL 
+       {  
+        ?MethodInterface1 :hasParameter ?Namepar ;
+                          :hasParameterName ?nameparameter1 .
+        ?Namepar          :hasNameParameter ?nameparameter1 ;
+                          :hasNameTypePar ?nametypeparameter1 ;
+                          :hasNameIndex  ?nameindex1 ;
+                          :hasNameDir   ?namedir1 .
+       }
+
+      ?naminter2     :typeInterface :provided ;
+                     :hasInterfaceName ?nameinterface2 ;
+                     :hasMethod ?MethodInterface2 .         
+
+     ?MethodInterface2 :hasMethodName ?NameMethod ;   
+                       :hasNumParMethod ?numparm2 ;
+                       :NomTypeRet ?nametyperet2 .
+     OPTIONAL 
+     {  
+     ?MethodInterface2 :hasParameter ?Namepara2 ;
+                       :hasParameterName ?nameparameter2 .
+     ?Namepara2        :hasNameParameter ?nameparameter2 ;
+                       :hasNameTypePar ?nametypeparameter2 ;
+                       :hasNameIndex  ?nameindex2 ;
+                       :hasNameDir   ?namedir2 .
+     }      
+
+  BIND(if(bound(?nametypeparameter1), fn:substring(?nametypeparameter1, fn:string-length(?nametypeparameter1), 1 ),"") AS 
+          ?typecode1 )
+  BIND(if(bound(?nametypeparameter1), fn:substring(?nametypeparameter1, 1,fn:string-length(?nametypeparameter1)-1 ),"") AS 
+          ?nametypepar1 )
+  BIND(if(bound(?nametypeparameter2), fn:substring(?nametypeparameter2, fn:string-length(?nametypeparameter2), 1 ),"") AS 
+          ?typecode2 )
+  BIND(if(bound(?nametypeparameter2), fn:substring(?nametypeparameter2, 1,fn:string-length(?nametypeparameter2)-1 ),"") AS 
+          ?nametypepar2 )
+
+  BIND(if(bound(?nameparameter1), fn:substring(?nameparameter1, fn:string-length(?nameparameter1), 1 ),"") AS ?numcode1 )
+  BIND(if(bound(?nameparameter1), fn:substring(?nameparameter1, 1,fn:string-length(?nameparameter1)-1 ),"") AS ?namepar1 )
+  BIND(if(bound(?nameparameter2), fn:substring(?nameparameter2, fn:string-length(?nameparameter2), 1 ),"") AS ?numcode2 )
+  BIND(if(bound(?nameparameter2), fn:substring(?nameparameter2, 1,fn:string-length(?nameparameter2)-1 ),"") AS ?namepar2 )  
+  BIND( if(bound(?NameMethodEmpty), "Operation "+ ?NameMethodEmpty +"() in interface "+ ?nameinterface1 + " Not Found in Interface "+ ?nameinterface2,"") AS ?MethodNot )   
+
+  BIND( IF( (?nametypepar1 = "char" && ?nametypepar2 = "string") || ( ?nametypepar1 = "int" &&  ?nametypepar2 = "long"), 1, 0) AS ?Flag ) 
+
+  BIND(
+      IF(?nametyperet1 != ?nametyperet2, "Type return operation mismatch between "+ ?nameinterface1+"."+ 
+        ?NameMethod+"()"+" return "+ ?nametyperet1 + " and " + ?nameinterface2+"."+ 
+        ?NameMethod + "() return "+ ?nametyperet2,   
+         IF( ?numparm1 != ?numparm2, "Wrong number of parameters between "+
+             ?nameinterface1+"."+ ?NameMethod +"() has "+ ?numparm1 +" and "+?nameinterface2+"."+ ?NameMethod+"() has "+?numparm2,
+
+
+IF( ?nameparameter1 != ?nameparameter2, "Name mismatch between parameters "+
+    ?nameinterface1 + "." + ?NameMethod + "(" + ?nameparameter1 + ")" +
+    " and " + ?nameinterface2 + "." + ?NameMethod + "("+ ?nameparameter2 +")",
+
+
+           IF( ?namedir1 != ?namedir2 && ?namepar1 = ?namepar2, "Direction mismatch between parameters " + 
+               ?nameinterface1+"."+ ?NameMethod + "("+?namepar1+")" +" has: "+
+               ?namedir1 +" and "+ ?nameinterface2 +"."+ ?NameMethod + "("+?namepar2+")" + " has: "+?namedir2, 
+            IF( ?nameindex1 != ?nameindex2 && ?namepar1 = ?namepar2 &&  
+               ?typecode1 = ?numcode1 && ?numcode1 = ?nameindex1 && ?typecode2 = ?numcode2 && ?numcode2 = ?nameindex2,  
+               "Different position between parameters " +   ?nameinterface1+"."+ 
+               ?NameMethod+"() "+ ?namepar1+" pos: " + ?nameindex1 + " and " + ?nameinterface2+"." + 
+               ?NameMethod+"() "+ ?namepar2 +  " pos: "+?nameindex2, 
+             IF(?nametypepar1 != ?nametypepar2 && ?namepar1 = ?namepar2 && ?typecode1 = ?numcode1, 
+                 "Error in type mismatch between parameters " + ?nameinterface1+"."+
+                 ?NameMethod+ " ("+?nametypepar1+" "+?namepar1+") has type: "+ ?nametypepar1 
+                 + " and " + ?nameinterface2+"."+?NameMethod+ " ("+ ?nametypepar2+" "+?namepar2 +")" + 
+                 " has type: "+?nametypepar2, "" )  
+             )
+            )
+           )                            
+        )
+      ) AS ?ErrorMessage0   
+   )
+       
+  BIND(?MethodNot + "\n" + ?ErrorMessage0 AS ?ErrorMessage )
+} 
+
