@@ -1,23 +1,42 @@
 module Bank{
-    domain       Bank;
-    subdomain    Atm;
+    
+        domain Bank;
+ 
+    subdomain Atm;
 
-     provided interface IBank{      
-           inv: balance() >= creditLimit() .   
 
-           void createSession();
-           void locateBank();
-           void deposit(in int Amount, in int ClientNum)
-           {   pre: amount > 0.
-               pre: validClient(numclient) == true.    
-               post: self.amount = self.amount + amount.          
-           };
-           void withdrawal(in int CardNo, in string Password, in int Amount)
-           {   pre: self.amount > amount .
-               pre: password <> empty .
-               pre: validCard(cardno) == true .
-               post: self.amount = self.amount + amount .
-               inv: length(password) > 5 .
-           };
-      };
-};
+
+     provided interface IBank{
+          inv:  balance() >= creditLimit() .
+            
+                   
+    void deposit(in int ClientNum, in string Amount)
+     
+          {  pre: Amount > 0 .
+
+             pre: validClient(ClientNum) == true .
+                                         post: self.Amount = self.Amount + Amount .
+     
+          };
+
+    void withdrawal(out int CardNo, in string Password, in int Amount)
+
+          {  pre: self.Amount > Amount .
+      
+             pre: Password <> empty .
+          
+             pre: validCard(CardNo) == true .
+ 
+             post: self.Amount = self.Amount - Amount .
+                                         inv: length(Password) > 7 .
+            
+          };
+
+          void createSession();
+   
+          void locateBank();
+        
+        };
+
+
+    };
