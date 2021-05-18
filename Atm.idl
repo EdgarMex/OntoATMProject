@@ -1,36 +1,68 @@
  module ATM{
-       domain       Bank;
-       subdomain    Atm;
+       
+   domain       Bank;
+       
+   subdomain    Atm;
 
-       required interface IAtmUser{
-           void readPIN(in int CardNo, in char Password);
-           void setMenu();
-           void setMessages();
+      
+ required interface IAtmUser{
+      
+     void readPIN(in int CardNo, in string Password);
+        
+    void setMenu();
+       
+    void setMessages();
         };
-        required interface IAtmPrinter{
-           void printReceipt();
-        };
-        required interface IAtmBank{
-            inv:  balance() >= creditLimit() .
+  
+    required interface IAtmPrinter{
+   
+        void printReceipt();
+       
+    };
+        
+      
+  required interface IAtmBank{
+         
+    inv:  balance() >= creditLimit() .
+          
+    void deposit(in int ClientNum, in int Amount)
+  {
+         pre: Amount > 0 .
+
+         pre: validClient(ClientNum) == true .
+        
+        post: self.Amount = self.Amount + Amount .
+    
+    };
+          
+  void withdrawal(out int CardNo, in string Password, in int Amount)
+    
+  {  pre: self.Amount >= Amount .
+     
+     pre: Password <> empty .
+          
+     pre: validCard(CardNo) == true .
+   
+    post: self.Amount = self.Amount - Amount .
+        
+     inv: length(Password) > 5 .
+        
+          };
+
+   void createSession();
             
-            void deposit(in int ClientNum, in string Amount)
-            {  pre: amount > 0 .
-               pre: validClient(numclient) == true.
-               post: self.amount = self.amount + amount.
-            };
-            void withdrawal(out int CardNo, in string Password, in int Amount)
-            {  pre: self.amount > amount .
-               pre: password <> empty .
-               pre: validCard(cardno) == true .
-               post: self.amount = self.amount - amount .
-               inv: length(password) > 7 .
-            };
-            long createSession();
-            void locateBankv2();
-        };
-        required interface IAtmCard{
-            void readCard(in int CardNo, in string Password);
-            int ejectCard();
-            void Consortium();
-        };
+        void locateBank();
+        
+  };
+        
+   
+     required interface IAtmCard{
+           
+             void readCard(in int CardNo, in string Password);
+                       void ejectCard();
+     
+             void consortium();
+       
+     };
+
 };
