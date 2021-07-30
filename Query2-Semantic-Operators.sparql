@@ -1,0 +1,454 @@
+# Autor: Francisco Edgar Castillo Barrera
+#
+# Copyright(c) 16 Julio 2021, San Luis Potosi, Mexico
+#
+# c:>pellet query -q Query2.2-Semantic-Operators.sparql OntoAtmBankProject.n3
+#
+# 16 postcondition cases
+
+PREFIX     : <http://www.ejemplo.org/#> 
+
+SELECT DISTINCT ?PreconditionResult2 
+                ?PreconditionResult1 ?PreconditionResult4 ?PreconditionResult5
+                ?PreconditionResult3 ?PreconditionResult6 ?PreconditionResult7
+                ?PreconditionResult8 ?PreconditionResult9 ?PreconditionResult10
+                ?PreconditionResult11 ?PreconditionResult12 ?PreconditionResult13
+                ?PreconditionResult14 ?PreconditionResult15 ?PreconditionResult16  
+                ?InvariantResult1 ?InvariantResult2 ?PostcondResult
+WHERE    
+{ ?Interface1       :hasInterfaceName ?nameinterface1 ;
+                    :typeInterface :required ;
+                    :hasMethod ?MethodInterface1 .
+  ?MethodInterface1 :hasMethodName ?NameMethod .
+
+  ?Interface2       :hasInterfaceName ?nameinterface2 ;
+                    :typeInterface :provided ;
+                    :hasMethod ?MethodInterface2 .
+  ?MethodInterface2 :hasMethodName ?NameMethod .
+#============== Precondition Error ========================================# 
+#------ Case1: interface attribute, relational operator, operation parameter
+#------ Example: self.amount >= amount -------------------------------------#
+  OPTIONAL {                 
+    ?MethodInterface1 :hasPrecond ?Pre10 .  
+    ?Pre10            :hasVariableName ?Varpre10 ;
+                      :hasOperator     ?Operatorpre1 ;
+                      :hasVariableName2 ?Varpre12 .
+
+    ?MethodInterface2 :hasPrecond ?Pre20 .  
+    ?Pre20            :hasVariableName ?Varpre20 ;
+                      :hasOperator ?Operatorpre2 ;
+                      :hasVariableName2 ?Varpre2 .
+  }
+ BIND( if( ?Varpre10  != ?Varpre20 || ( ?Operatorpre1 != ?Operatorpre2 &&
+        ?OperatorInv1 = ">=" && ?OperatorInv2 = ">" ) || ?Varpre12 != ?Varpre2, 
+          "Precondition mismatch error:\n" + "required " + ?Varpre10 + 
+          ?Operatorpre1 + ?Varpre12 + "\n" + "provided " + ?Varpre20 + 
+          ?Operatorpre2 + ?Varpre2+"\n", 
+          "Precondition matching case 1 ok!\n"+"  required " + ?Varpre1 + 
+          ?Operatorpre1 + ?Varpre12 + "\n" + "   provided " + ?Varpre20 + 
+          ?Operatorpre2 + ?Varpre2 +"\n" ) AS ?PreconditionResult1 )
+
+#----- Case2: operation parameter, relational operator, Constant ----#
+#----- Example: amount > 0 ------------------------------------------#
+#----- Valid: amount-required > 0, amount-provided > 5 --------------#
+  OPTIONAL {
+    ?MethodInterface1 :hasPrecond      ?Pre11 . 
+    ?Pre11            :hasVariableName ?Varpre11 ;
+                      :hasOperator     ?Operatorpre11 ;
+                      :hasNumber       ?Number11 .
+
+    ?MethodInterface2 :hasPrecond ?Pre21 .  
+    ?Pre21            :hasVariableName ?Varpre21 ;
+                      :hasOperator ?Operatorpre21 ;
+                      :hasNumber ?Number21 .
+  }
+BIND( if( ?Varpre11 != ?Varpre21 || ?Operatorpre11 !=
+            ?Operatorpre21 || ?Number11 > ?Number21,
+           "Precondition mismatch error:\n" + "required "+
+           ?Varpre11+ ?Operatorpre11 + str(?Number11) + "\n" +   
+           "provided " + ?Varpre21 + ?Operatorpre21 + str(?Number21)+"\n",
+           "Precondition matching case 2 ok!\n" + "   required "+
+           ?Varpre11+ ?Operatorpre11 + str(?Number11) + "\n" +   
+           "   provided " + ?Varpre21 + ?Operatorpre21 + str(?Number21)+"\n"
+           ) AS ?PreconditionResult2 )
+
+#----- Case3: calling function, relational operator, constant --------#
+#----- Example: validclient(clientnum) == true ----------------------#
+  OPTIONAL {
+    ?MethodInterface1 :hasPrecond    ?Pre12 . 
+    ?Pre12            :hasCallMethod ?Method12 ;
+                      :hasOperator   ?Operatorpre12 ;
+                      :hasConstant   ?Constant12 .
+
+    ?MethodInterface2 :hasPrecond ?Pre22 .  
+    ?Pre22            :hasCallMethod ?Method22 ;
+                      :hasOperator ?Operatorpre22 ;
+                      :hasConstant ?Constant22 . 
+  }
+ BIND( if( ?Method12 != ?Method22 ||?Operatorpre12 != ?Operatorpre22 || 
+           ?Constant12 != ?Constant22,
+         "Precondition mismatch error:\n" + 
+         "required "+ ?Method12 + ?Operatorpre12 + ?Constant12 
+       + "\n" + "   provided "+?Method22 + ?Operatorpre22 +
+         ?Constant22 + "\n", "Precondition matching case 3 ok!\n"+
+         "   required "+ ?Method12 + ?Operatorpre12 + ?Constant12 
+       + "\n" + "   provided "+?Method22 + ?Operatorpre22 +
+         ?Constant22+"\n" ) AS ?PreconditionResult3 )
+
+#----- Case4: operation parameter, relational operator, constant -------#
+#----- Example: password <> empty -------------------------------------#
+  OPTIONAL {
+    ?MethodInterface1 :hasPrecond      ?Pre13 . 
+    ?Pre13            :hasVariableName ?Varpre13 ;
+                      :hasOperator     ?Operatorpre13 ;
+                      :hasConstant     ?Constant13 .
+
+    ?MethodInterface2 :hasPrecond ?Pre23 .  
+    ?Pre23            :hasVariableName ?Varpre23 ;
+                      :hasOperator ?Operatorpre23 ;
+                      :hasConstant ?Constant23 . 
+  }
+ BIND( if( ?Varpre13 !=  ?Varpre23 || ?Operatorpre13 != ?Operatorpre23 || 
+            ?Constant13 != ?Constant23,
+            "Precondition mismatch error:\n" + 
+            "Required "+ ?Varpre13 +" "+ ?Operatorpre13 +" "+ ?Constant13 + 
+            "\n" +  "Provided  "+ ?Varpre23 +" "+ ?Operatorpre23 +" "+
+            ?Constant23,"Precondition matching case 4 ok!\n"+
+            "   required "+ ?Varpre13 +" "+ ?Operatorpre13 +" "+ ?Constant13 + 
+            "\n" +  "   provided  "+ ?Varpre23 +" "+ ?Operatorpre23 +" "+
+            ?Constant23+"\n") AS ?PreconditionResult4 )
+
+#------- Case5: Constant, Relational operator, operation parameter ------#
+#------- Example: 1000000 > amount -------------------------------------#
+OPTIONAL {
+    ?MethodInterface1 :hasPrecond      ?Pre14 . 
+    ?Pre14            :hasNumber       ?Number14 ;
+                      :hasOperator     ?Operatorpre14 ;
+                      :hasVariableName ?Varpre14 .
+
+    ?MethodInterface2 :hasPrecond ?Pre24 .  
+    ?Pre24            :hasNumber ?Number24 ;
+                      :hasOperator ?Operatorpre24 ;
+                      :hasVariableName ?Varpre24 .
+  }
+  BIND( if( ?Varpre14 != ?Varpre24 || ?Operatorpre14 !=
+            ?Operatorpre24 || ?Number14 > ?Number24 ,
+           "Precondition mismatch error:\n" + "required "+
+           ?Varpre14+ ?Operatorpre14 + str(?Number14) + "\n" +   
+           "provided " + ?Varpre24 + ?Operatorpre24 + str(?Number24)+"\n",
+           "Precondition matching case 5 ok!\n" + "   required "+
+           ?Varpre14+ ?Operatorpre14 + str(?Number14) + "\n" +   
+           "   provided " + ?Varpre24 + ?Operatorpre24 + str(?Number24)+"\n"
+           ) AS ?PreconditionResult5 )
+
+#---------- Case7: Constant, Relational Operator, calling function -------#
+#---------- Example: false <> validclient(clientnum) --------------------#
+  OPTIONAL {
+    ?MethodInterface1 :hasPrecond    ?Pre15 . 
+    ?Pre15            :hasConstant   ?Constant15 ;
+                      :hasOperator   ?Operatorpre15 ;
+                      :hasCallMethod ?Method15 .
+
+    ?MethodInterface2 :hasPrecond ?Pre25 .  
+    ?Pre25            :hasCallMethod ?Method25 ;
+                      :hasOperator ?Operatorpre25 ;
+                      :hasConstant ?Constant25 . 
+  }
+ BIND( if( ?Method15 != ?Method25 ||?Operatorpre15 != ?Operatorpre25 || 
+           ?Constant15 != ?Constant25,"Precondition mismatch error:\n" + 
+         "required "+ ?Method15 + ?Operatorpre15 + ?Constant15 
+       + "\n" + "   provided "+?Method25 + ?Operatorpre25 +
+         ?Constant25 + "\n", "Precondition matching case 7 ok!\n"+
+         "   required "+ ?Method15 + ?Operatorpre15 + ?Constant15 
+       + "\n" + "   provided "+?Method25 + ?Operatorpre25 +
+         ?Constant25+"\n" ) AS ?PreconditionResult6 )
+
+#------ Case8: interface attribute, relational operator, constant ------#
+#------ Example: self.amount >= 0 -------------------------------------#
+  OPTIONAL {                 
+    ?MethodInterface1 :hasPrecond ?Pre16 .  
+    ?Pre16            :hasVariableName ?Varpre16 ;
+                      :hasOperator     ?Operatorpre16 ;
+                      :hasConstant     ?Const16 .
+
+    ?MethodInterface2 :hasPrecond ?Pre26 .  
+    ?Pre26            :hasVariableName ?Varpre26 ;
+                      :hasOperator ?Operatorpre26 ;
+                      :hasConstant ?Const26 .
+  }
+ BIND( if( ?Varpre16  != ?Varpre26 || ( ?Operatorpre16 != ?Operatorpre26 &&
+        ?Operatorpre16 = ">=" && ?Operatorpre26 = ">" ) || ?Const16 != ?Const26, 
+          "Precondition mismatch error:\n" + "required " + ?Varpre16 + 
+          ?Operatorpre16 + ?Const16 + "\n" + "provided " + ?Varpre26 + 
+          ?Operatorpre26 + ?Const26+"\n", 
+          "Precondition matching case 8 ok!\n"+"  required " + ?Varpre16 + 
+          ?Operatorpre16 + ?Const16 + "\n" + "   provided " + ?Varpre26 + 
+          ?Operatorpre26 + ?Const26 +"\n" ) AS ?PreconditionResult7 )
+
+#------ Case9: calling function, relational operator, calling function ------#
+#------ Example: validpassword(password) == validclient(clientnum) ---------#
+  OPTIONAL {
+    ?MethodInterface1 :hasPrecond    ?Pre17 . 
+    ?Pre17            :hasCallMethod ?Method17 ;
+                      :hasOperator   ?Operatorpre17 ;
+                      :hasCallMethod ?Method117 .
+
+    ?MethodInterface2 :hasPrecond ?Pre27 .  
+    ?Pre27            :hasCallMethod ?Method27 ;
+                      :hasOperator ?Operatorpre27 ;
+                      :hasCallMethod ?Method217 .
+  }
+ BIND( if( ?Method17 != ?Method27 ||?Operatorpre17 != ?Operatorpre27 
+           ,"Precondition mismatch error:\n" + 
+         "required "+ ?Method17 + ?Operatorpre17 + ?Method117  
+       + "\n" + "   provided "+?Method27 + ?Operatorpre27 + ?Method217 +
+         "\n", "Precondition matching case 9 ok!\n"+
+         "   required "+ ?Method17 + ?Operatorpre17 + ?Method117  
+       + "\n" + "   provided "+?Method27 + ?Operatorpre27 + ?Method217
+         +"\n" ) AS ?PreconditionResult8 )
+
+#--- Case10: operation parameter, relational operator, interface attribute --#
+#--- Example: password == self.password -------------------------------------#
+  OPTIONAL {                 
+    ?MethodInterface1 :hasPrecond ?Pre18 .  
+    ?Pre18            :hasVariableName ?Varpre18 ;
+                      :hasOperator     ?Operatorpre18 ;
+                      :hasVariableName2 ?Varpre218 .
+
+    ?MethodInterface2 :hasPrecond ?Pre28 .  
+    ?Pre28            :hasVariableName ?Varpre28 ;
+                      :hasOperator ?Operatorpre28 ;
+                      :hasVariableName2 ?Varpre228 .
+  }
+ BIND( if( ?Varpre18  != ?Varpre28 || ( ?Operatorpre18 != ?Operatorpre28 
+        ) || ?Varpre18 != ?Varpre28, 
+          "Precondition mismatch error:\n" + "required " + ?Varpre18 + 
+          ?Operatorpre18 + ?Varpre218 + "\n" + "provided " + ?Varpre28 + 
+          ?Operatorpre28 + ?Varpre228+"\n", 
+          "Precondition matching case 10 ok!\n"+"  required " + ?Varpre18 + 
+          ?Operatorpre18 + ?Varpre218 + "\n" + "   provided " + ?Varpre28 + 
+          ?Operatorpre28 + ?Varpre228 +"\n" ) AS ?PreconditionResult9 )
+
+#---- Case11: calling function, relational operator, interface attribute ---#
+#---- Example: validpassword(password) <> self.password --------------------#
+  OPTIONAL {
+    ?MethodInterface1 :hasPrecond    ?Pre19 . 
+    ?Pre19            :hasCallMethod ?Method19 ;
+                      :hasOperator   ?Operatorpre19 ;
+                      :hasCallMethod ?Method119 .
+
+    ?MethodInterface2 :hasPrecond ?Pre29 .  
+    ?Pre29            :hasCallMethod ?Method29 ;
+                      :hasOperator ?Operatorpre29 ;
+                      :hasCallMethod ?Method219 .
+  }
+ BIND( if( ?Method19 != ?Method29 ||?Operatorpre19 != ?Operatorpre29 
+           ,"Precondition mismatch error:\n" + 
+         "required "+ ?Method19 + ?Operatorpre19 + ?Method119 
+       + "\n" + "   provided "+?Method29 + ?Operatorpre29 + ?Method219 +
+         "\n", "Precondition matching case 11 ok!\n"+
+         "   required "+ ?Method19 + ?Operatorpre19  + ?Method119
+       + "\n" + "   provided "+?Method29 + ?Operatorpre29 + ?Method219
+         +"\n" ) AS ?PreconditionResult10 )
+
+#----- Case12: operation parameter, relational operator, Constant -----#
+#----- Example: clientnum > 999 ---------------------------------------#
+#----- Valid: clientnum-required > 999, clientnum-provided > 1000 -----#
+  OPTIONAL {
+    ?MethodInterface1 :hasPrecond      ?Pre20 . 
+    ?Pre20            :hasVariableName ?Varpre20 ;
+                      :hasOperator     ?Operatorpre20 ;
+                      :hasNumber       ?Number20 .
+
+    ?MethodInterface2 :hasPrecond ?Pre30 .  
+    ?Pre30            :hasVariableName ?Varpre30 ;
+                      :hasOperator ?Operatorpre30 ;
+                      :hasNumber ?Number30 .
+  }
+BIND( if( ?Varpre20 != ?Varpre30 || ?Operatorpre20 !=
+            ?Operatorpre30 || ?Number20 > ?Number30,
+           "Precondition mismatch error:\n" + "required "+
+           ?Varpre20 + ?Operatorpre20 + str(?Number20) + "\n" +   
+           "provided " + ?Varpre30 + ?Operatorpre30 + str(?Number30)+"\n",
+           "Precondition matching case 12 ok!\n" + "   required "+
+           ?Varpre20+ ?Operatorpre20 + str(?Number20) + "\n" +   
+           "   provided " + ?Varpre30 + ?Operatorpre30 + str(?Number30)+"\n"
+           ) AS ?PreconditionResult11 )
+
+#- Case13: interface attribute, operator, interface attribute, operator, parameter -#
+#----- Example: self.amount = self.amount - amount ---------------------------------#
+ OPTIONAL {                 
+  ?MethodInterface1 :hasPostcond ?Pre21 .  
+  ?Pre21           :hasVariableName ?Varpre21 ;
+                    :hasOperator ?OperatorPre21 ;
+                    :hasVariableName1 ?Varpre221 ;
+                    :hasArithmeticOperator ?OperSign21 ;
+                    :hasVariableName2 ?Varpre213 .
+
+  ?MethodInterface2 :hasPostcond ?Pre31 .  
+  ?Pre31            :hasVariableName ?Varpost31 ;
+                    :hasOperator ?OperatorPost31 ;
+                    :hasVariableName1 ?Varpost312 ;
+                    :hasArithmeticOperator ?OperSign31 ;
+                    :hasVariableName2 ?Varpost32 .
+  }
+ BIND( if( ?Varpre21 != ?Varpre31 || ?OperatorPre21 != ?OperatorPre31 
+        || ?Varpre221 != ?Varpre312 ||?OperSign21 != ?OperSign31 || 
+           ?Varpre213 != ?Varpre32 , "Precondition mismatch error:\n"   
+         +"Required "+?nameinterface1+"."+
+          ?NameMethod+" Pre: "+ ?Varpre221 +?OperatorPre21 +
+          ?Varpre221 + ?OperSign21 + ?Varpre213+ "\n" + "Provided " +
+          ?nameinterface2+"."+ ?NameMethod+" Pre: "+ ?Varpre31+
+          ?OperatorPre31 + ?Varpre22 +
+          ?OperSign31 + ?Varpre32 + "\n\n","Precondition matching ok!\n"+
+         "   required "+ ?Varpre21 +?OperatorPre21 +
+          ?Varpre21 + ?OperSign21 + ?Varpre213+ "\n" + "   provided " +
+          ?Varpre31 + ?OperatorPre31 + ?Varpre312 + ?OperSign31 + 
+          ?Varpre32+"\n") AS ?PreconditionResult12 ) 
+
+#---- Case14: interface attribute, relational operator, operation parameter ----#
+#---- Example: self.numclient <> numclient -------------------------------------#
+  OPTIONAL {                 
+    ?MethodInterface1 :hasPrecond ?Pre22 .  
+    ?Pre22            :hasVariableName ?Varpre22 ;
+                      :hasOperator     ?Operatorpre22 ;
+                      :hasNumber  ?Varpre122 .
+
+    ?MethodInterface2 :hasPrecond ?Pre32 .  
+    ?Pre32            :hasVariableName ?Varpre32 ;
+                      :hasOperator ?Operatorpre32 ;
+                      :hasNumber   ?Varpre32 .
+  }
+ BIND( if( ?Varpre22  != ?Varpre32 || ?Operatorpre22 != ?Operatorpre32  || 
+            ?Varpre122 != ?Varpre32, "Precondition mismatch error:\n" + "required " 
+          + ?Varpre22 + ?Operatorpre22 + ?Varpre122 + "\n" + "provided " + 
+            ?Varpre32 + ?Operatorpre32 + ?Varpre32+"\n", 
+          "Precondition matching case 1 ok!\n"+"  required " + ?Varpre22 + 
+          ?Operatorpre22 + ?Varpre122 + "\n" + "   provided " + ?Varpre32 + 
+          ?Operatorpre32 + ?Varpre32 +"\n" ) AS ?PreconditionResult13 )
+
+#---- Case15: calling function, relational operator, constant ---#
+#---- Example: lenght(password) == 9 ----------------------------#
+  OPTIONAL {
+    ?MethodInterface1 :hasPrecond    ?Pre23 . 
+    ?Pre23            :hasCallMethod ?Method23 ;
+                      :hasNumber   ?Number23 .
+
+    ?MethodInterface2 :hasPrecond ?Pre33 .  
+    ?Pre33            :hasCallMethod ?Method33 ;
+                      :hasNumber ?Number33 .
+  }
+ BIND( if( ?Method23 != ?Method33 ||?Number23 != ?Number33 
+           ,"Precondition mismatch error:\n" + 
+         "required "+ ?Method23 + ?Number23  
+       + "\n" + "   provided "+?Method33 + ?Number33 +
+         "\n", "Precondition matching case 15 ok!\n"+
+         "   required "+ ?Method23 + ?Number23  
+       + "\n" + "   provided "+?Method33 + ?Number33 
+         +"\n" ) AS ?PreconditionResult14 )
+
+#---- Case16: interface attribute, relational operator, interface attribute ----#
+#---- Example: self.numclient <> self.password ---------------------------------#
+  OPTIONAL {                 
+    ?MethodInterface1 :hasPrecond ?Pre24 .  
+    ?Pre24            :hasVariableName ?Varpre24 ;
+                      :hasOperator     ?Operatorpre24 ;
+                      :hasVariableName2 ?Varpre224.
+
+    ?MethodInterface2 :hasPrecond ?Pre34 .  
+    ?Pre34            :hasVariableName ?Varpre34 ;
+                      :hasOperator ?Operatorpre34 ;
+                      :hasVariableName2 ?Varpre334.
+  }
+ BIND( if( ?Varpre24  != ?Varpre34 || ?Operatorpre24 != ?Operatorpre34  || 
+       ?Varpre224 != ?Varpre334, "Precondition mismatch error:\n" + "required" 
+          + ?Varpre24 + ?Operatorpre24 + ?Varpre224 + "\n" + "provided " + 
+            ?Varpre34 + ?Operatorpre34 + ?Varpre334+"\n", 
+          "Precondition matching case 1 ok!\n"+"  required " + ?Varpre24 + 
+          ?Operatorpre24 + ?Varpre224 + "\n" + "   provided " + ?Varpre34 + 
+          ?Operatorpre34 + ?Varpre334 +"\n" ) AS ?PreconditionResult13 )
+
+#============= Postcondition Error ==========================#
+#------------- Case: self.amount = self.amount + amount -----#
+  OPTIONAL {                 
+  ?MethodInterface1 :hasPostcond ?Post1 .  
+  ?Post1            :hasVariableName ?Varpost1 ;
+                    :hasOperator ?OperatorPost1 ;
+                    :hasVariableName1 ?Varpost21 ;
+                    :hasArithmeticOperator ?OperSign1 ;
+                    :hasVariableName2 ?Varpost3 .
+
+  ?MethodInterface2 :hasPostcond ?Post2 .  
+  ?Post2            :hasVariableName ?Varpost2 ;
+                    :hasOperator ?OperatorPost2 ;
+                    :hasVariableName1 ?Varpost22 ;
+                    :hasArithmeticOperator ?OperSign2 ;
+                    :hasVariableName2 ?Varpost32 .
+  }
+ BIND( if( ?Varpost1 != ?Varpost2 || ?OperatorPost1 != ?OperatorPost2 
+        || ?Varpost21 != ?Varpost22 ||?OperSign1 != ?OperSign2 || 
+           ?Varpost3 != ?Varpost32 , "Postcondition mismatch error:\n"   
+         +"Required "+?nameinterface1+"."+
+          ?NameMethod+" Post: "+ ?Varpost1 +?OperatorPost1 +
+          ?Varpost21 + ?OperSign1 + ?Varpost3+ "\n" + "Provided " +
+          ?nameinterface2+"."+ ?NameMethod+" Post: "+ ?Varpost2+
+          ?OperatorPost2 + ?Varpost22 +
+          ?OperSign2 + ?Varpost32 + "\n\n","Postcondition matching ok!\n"+
+         "   required "+ ?Varpost1 +?OperatorPost1 +
+          ?Varpost21 + ?OperSign1 + ?Varpost3+ "\n" + "   provided " +
+          ?Varpost2 + ?OperatorPost2 + ?Varpost22 + ?OperSign2 + 
+          ?Varpost32+"\n") AS ?PostcondResult ) 
+
+#============= Invariant Error ======================================#
+#-- Case: callFunction(parameter), RelationalOperator, Const. -------#
+#-- Example: length(password) > 5 -----------------------------------#
+#-Valid:length(password)-required > 5, length(password)-provided > 7-#
+
+OPTIONAL {                 
+   ?MethodInterface1 :hasInvariant  ?Invariant1 .
+   ?Invariant1       :hasCallMethod ?CallMethod1 ;
+                     :hasOperator   ?OperatorInv1 ;
+                     :hasNumber     ?NumberInv1 .   
+  
+   ?MethodInterface2 :hasInvariant  ?Invariant2 .
+   ?Invariant2       :hasCallMethod ?CallMethod2 ;
+                     :hasOperator   ?OperatorInv2 ;
+                     :hasNumber     ?NumberInv2 .
+ }
+ BIND( if( ?CallMethod1 != ?CallMethod2 || ?OperatorInv1 != ?OperatorInv2 || 
+           ( ?OperatorInv1 =">" && ?OperatorInv2 =">" && ?NumberInv1 >
+             ?NumberInv2 ) , "Invariant mismatch error! \n"+ "required "+
+            ?CallMethod1 +" "+ ?OperatorInv1 +" "+ str(?NumberInv1)+
+           "\n"+ "provided "+ ?CallMethod2 +  " "+ ?OperatorInv2 + 
+           " "+ str(?NumberInv2), "Invariant matching case 2 ok!\n"+"   required "+ 
+           ?CallMethod1 +" "+ ?OperatorInv1 +" "+ str(?NumberInv1)+"\n" 
+           + "   provided "+ ?CallMethod2 + " "+ ?OperatorInv2 + " "+ 
+            str(?NumberInv2)+"\n" ) AS ?InvariantResult2 ) 
+
+#------------- Case: balance() >= creditlimit() -------------#
+ OPTIONAL {   
+    ?Interface1       :hasInvariant   ?Invariant11 . 
+    ?Invariant11      :hasCallMethod  ?CallMethod11 ;
+                      :hasOperator    ?OperatorInv11 ;
+                      :hasCallMethod2 ?CallMethod111 .
+
+    ?Interface2       :hasInvariant   ?Invariant22 .
+    ?Invariant22      :hasCallMethod  ?CallMethod22 ;
+                      :hasOperator    ?OperatorInv22 ;
+                      :hasCallMethod2 ?CallMethod222 .   
+ } 
+ BIND( if( ?CallMethod11 != ?CallMethod22 || ?OperatorInv11 != ?OperatorInv22 
+           || ?CallMethod111 != ?CallMethod222, 
+          "Invariant mismatch error!\n"+
+          "required "+ ?CallMethod11 +" "+ ?OperatorInv11 +" "+ 
+           ?CallMethod111+"\n"+ "provided "+ ?CallMethod22 +
+           " "+ ?OperatorInv22 +" "+ ?CallMethod222, 
+           "Invariant matching case 1 ok!\n"+ "   required "+ ?CallMethod11 +" "+ 
+           ?OperatorInv11 +" "+ ?CallMethod111+"\n"+ "   provided "+ ?CallMethod22 +
+           " "+ ?OperatorInv22 +" "+ ?CallMethod222+"\n") AS ?InvariantResult1 )
+#----------------------------------------------------------  
+
+
+
+  
+} 
