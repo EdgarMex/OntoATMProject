@@ -1,3 +1,6 @@
+# Resources are represented with a Uniform Resource Identifier (URIs)
+# which can be abbreviated as PREFIX names
+# PREFIX name "fn" is defined as XPath and XQuery Functions and Operators
 
 PREFIX   : <http://www.ejemplo.org/#> 
 PREFIX fn: <http://www.w3.org/2005/xpath-functions#>
