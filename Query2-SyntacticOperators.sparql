@@ -5,16 +5,26 @@
 PREFIX   : <http://www.ejemplo.org/#> 
 PREFIX fn: <http://www.w3.org/2005/xpath-functions#>
    
+# Query that returns an error message in the "?ErrorMessage" variable if one is found.
 SELECT DISTINCT ?ErrorMessage WHERE
 {     
-         ?naminter1 :typeInterface :required ;
+       # Search for the name of the interface to which method 1 "?nameinterface1", 
+       # belongs, name of method 1 "?NameMethod", number of parameters "?numparm1"  
+       # and type of return value "?nametyperet1".
+   
+       ?naminter1 :typeInterface :required ;
                     :hasInterfaceName ?nameinterface1 ;
                     :hasMethod ?MethodInterface1 .
 
        ?MethodInterface1 :hasMethodName ?NameMethod ;
                          :hasNumParMethod ?numparm1 ;
                          :NomTypeRet ?nametyperet1 .
-                        
+   
+       # If there are parameters for method 1 (Optional section), the name 
+       # of the parameter "?nameparameter1" is obtained, the data type 
+       # "?nametypeparameter1" the position where "?nameindex1" is and its 
+       # address "?namedir1" ( input or output).
+   
        OPTIONAL 
        {  
         ?MethodInterface1 :hasParameter ?Namepar ;
@@ -24,7 +34,11 @@ SELECT DISTINCT ?ErrorMessage WHERE
                           :hasNameIndex  ?nameindex1 ;
                           :hasNameDir   ?namedir1 .
        }
-
+   
+       # Search for the name of the interface to which method 2 "?nameinterface2", 
+       # belongs, name of method 2 "?NameMethod", number of parameters "?numparm2"  
+       # and type of return value "?nametyperet2".
+   
       ?naminter2     :typeInterface :provided ;
                      :hasInterfaceName ?nameinterface2 ;
                      :hasMethod ?MethodInterface2 .         
@@ -32,7 +46,13 @@ SELECT DISTINCT ?ErrorMessage WHERE
      ?MethodInterface2 :hasMethodName ?NameMethod ;   
                        :hasNumParMethod ?numparm2 ;
                        :NomTypeRet ?nametyperet2 .
-     OPTIONAL 
+   
+     # If there are parameters for method 1 (Optional section), the name 
+     # of the parameter "?nameparameter1" is obtained, the data type 
+     # "?nametypeparameter1" the position where "?nameindex1" is and its 
+     # address "?namedir1" ( input or output).
+   
+   OPTIONAL 
      {  
      ?MethodInterface2 :hasParameter ?Namepara2 ;
                        :hasParameterName ?nameparameter2 .
