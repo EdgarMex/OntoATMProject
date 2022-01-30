@@ -1,17 +1,16 @@
-# Resources are represented with a Uniform Resource Identifier (URIs)
-# which can be abbreviated as PREFIX names
-# PREFIX name "fn" is defined as XPath and XQuery Functions and Operators
+# Query made in SPARQL for syntactic verification when trying to match between two methods from distinct interfaces, 
+# considering the name of the method, its parameters (name, index, datatype and direction) and the returned data type. 
 
+# Resources are represented with a Uniform Resource Identifier (URIs) which can be abbreviated as PREFIX names
+# PREFIX name "fn" is defined as XPath and XQuery Functions and Operators
 PREFIX   : <http://www.ejemplo.org/#> 
 PREFIX fn: <http://www.w3.org/2005/xpath-functions#>
    
 # Query that returns an error message in the "?ErrorMessage" variable if one is found.
 SELECT DISTINCT ?ErrorMessage WHERE
-{     
-       # Search for the name of the interface to which method 1 "?nameinterface1", 
+{      # Search for the name of the interface to which method 1 "?nameinterface1", 
        # belongs, name of method 1 "?NameMethod", number of parameters "?numparm1"  
        # and type of return value "?nametyperet1".
-   
        ?naminter1 :typeInterface :required ;
                     :hasInterfaceName ?nameinterface1 ;
                     :hasMethod ?MethodInterface1 .
@@ -24,7 +23,6 @@ SELECT DISTINCT ?ErrorMessage WHERE
        # of the parameter "?nameparameter1" is obtained, the data type 
        # "?nametypeparameter1" the position where "?nameindex1" is and its 
        # address "?namedir1" ( input or output).
-   
        OPTIONAL 
        {  
         ?MethodInterface1 :hasParameter ?Namepar ;
@@ -38,7 +36,6 @@ SELECT DISTINCT ?ErrorMessage WHERE
        # Search for the name of the interface to which method 2 "?nameinterface2", 
        # belongs, name of method 2 "?NameMethod", number of parameters "?numparm2"  
        # and type of return value "?nametyperet2".
-   
       ?naminter2     :typeInterface :provided ;
                      :hasInterfaceName ?nameinterface2 ;
                      :hasMethod ?MethodInterface2 .         
@@ -47,11 +44,10 @@ SELECT DISTINCT ?ErrorMessage WHERE
                        :hasNumParMethod ?numparm2 ;
                        :NomTypeRet ?nametyperet2 .
    
-     # If there are parameters for method 1 (Optional section), the name 
-     # of the parameter "?nameparameter1" is obtained, the data type 
-     # "?nametypeparameter1" the position where "?nameindex1" is and its 
-     # address "?namedir1" ( input or output).
-   
+     # If there are parameters for method 2 (Optional section), the name 
+     # of the parameter "?nameparameter2" is obtained, the data type 
+     # "?nametypeparameter2" the position where "?nameindex2" is and its 
+     # address "?namedir2" (input or output)
    OPTIONAL 
      {  
      ?MethodInterface2 :hasParameter ?Namepara2 ;
@@ -62,6 +58,9 @@ SELECT DISTINCT ?ErrorMessage WHERE
                        :hasNameDir   ?namedir2 .
      }      
 
+  # To identify if a parameter belongs to a method, a code is assigned to it, and to identify
+  # if a method belongs to an interface, a code is also assigned. To obtain the code it is
+  # necessary to subtract it from the string.
   BIND(if(bound(?nametypeparameter1), fn:substring(?nametypeparameter1, fn:string-length(?nametypeparameter1), 1 ),"") AS 
           ?typecode1 )
   BIND(if(bound(?nametypeparameter1), fn:substring(?nametypeparameter1, 1,fn:string-length(?nametypeparameter1)-1 ),"") AS 
@@ -77,6 +76,7 @@ SELECT DISTINCT ?ErrorMessage WHERE
   BIND(if(bound(?nameparameter2), fn:substring(?nameparameter2, 1,fn:string-length(?nameparameter2)-1 ),"") AS ?namepar2 )  
   BIND( if(bound(?NameMethodEmpty), "Operation "+ ?NameMethodEmpty +"() in interface "+ ?nameinterface1 + " Not Found in Interface "+ ?nameinterface2,"") AS ?MethodNot )   
 
+  # For data types, it is allowed to match between subsets such as the type "int" with the "long" and the type "char" with the "string" 
   BIND( IF( (?nametypepar1 = "char" && ?nametypepar2 = "string") || ( ?nametypepar1 = "int" &&  ?nametypepar2 = "long"), 1, 0) AS ?Flag ) 
 
   BIND(
@@ -86,12 +86,10 @@ SELECT DISTINCT ?ErrorMessage WHERE
          IF( ?numparm1 != ?numparm2, "Wrong number of parameters between "+
              ?nameinterface1+"."+ ?NameMethod +"() has "+ ?numparm1 +" and "+?nameinterface2+"."+ ?NameMethod+"() has "+?numparm2,
 
-
-IF( ?nameparameter1 != ?nameparameter2, "Name mismatch between parameters "+
+ # The comparison between the variables with the attributes of each method is made to determine if they match
+ IF( ?nameparameter1 != ?nameparameter2, "Name mismatch between parameters "+
     ?nameinterface1 + "." + ?NameMethod + "(" + ?nameparameter1 + ")" +
     " and " + ?nameinterface2 + "." + ?NameMethod + "("+ ?nameparameter2 +")",
-
-
            IF( ?namedir1 != ?namedir2 && ?namepar1 = ?namepar2, "Direction mismatch between parameters " + 
                ?nameinterface1+"."+ ?NameMethod + "("+?namepar1+")" +" has: "+
                ?namedir1 +" and "+ ?nameinterface2 +"."+ ?NameMethod + "("+?namepar2+")" + " has: "+?namedir2, 
@@ -111,7 +109,8 @@ IF( ?nameparameter1 != ?nameparameter2, "Name mismatch between parameters "+
         )
       ) AS ?ErrorMessage0   
    )
-       
+    
+  # At the end of the comparison, the final message is concatenated to the error variable in case there is an error
   BIND(?MethodNot + "\n" + ?ErrorMessage0 AS ?ErrorMessage )
 } 
 
