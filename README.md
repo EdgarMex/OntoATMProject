@@ -16,10 +16,10 @@ The full project consists of:
 
 6.-UserConsole.IDL and its corresponding instance file in n3 => UserConsole.n3 
 
-Remarks: For each IDL File it was neccesary transforming in an n3 file using
-         Moctezuma prototype.
+Remarks: For each IDL File it was neccesary transforming in an n3 file using Moctezuma prototype.
 
-For testing this semantic project you have to download the file "OntoATMProject.n3" and the SPARQL query "Query1-SyntacticOperators.sparql"  
+For testing: the entire project is assembled in a single ontological file "OntoATMProject.n3" that you need to download and the SPARQL queries: "Query2-SyntacticOperators.sparql" 
+to carry out the tests.
 
 Author: Dr. Francisco Edgar Castillo Barrera
 e-mail: ecastillo@uaslp.mx
