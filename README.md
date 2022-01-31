@@ -1,4 +1,4 @@
-OntoATMProject is a n3 project which allow us 
+OntoATMProject is a n3 (https://www.w3.org/TeamSubmission/n3/) project which allow us 
 verification matching among software components
 about an ATM system (Atm, Bank, Card, Printer, UserConsole)
 which consists of:
