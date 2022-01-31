@@ -18,10 +18,11 @@ The full project consists of:
 
 Remarks: For each IDL File it was neccesary transforming in an n3 file using Moctezuma prototype.
 
-For testing: the entire project is assembled in a single ontological file "OntoATMProject.n3" that you need to download and the SPARQL queries: "Query2-SyntacticOperators.sparql" 
-to carry out the tests.
+For testing: the entire project is assembled in a single ontological file "OntoATMProject.n3" that you need to download and the SPARQL queries: "Query1-Semantic-Operators.sparql" and "Query2-SyntacticOperators.sparql" to carry out the tests.
 
 Author: Dr. Francisco Edgar Castillo Barrera
+
 e-mail: ecastillo@uaslp.mx
+
 Last revision: December 2019
 
