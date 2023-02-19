@@ -1,0 +1,1018 @@
+Prefix: : <http://www.ejemplo.org/#>
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+
+
+
+Ontology: <http://www.ejemplo.org/#>
+
+
+Annotations: 
+    rdfs:comment "A ATM Ontology for matching among components in ATM model"
+
+AnnotationProperty: rdfs:comment
+
+    
+AnnotationProperty: rdfs:label
+
+    
+Datatype: rdf:PlainLiteral
+
+    
+Datatype: rdfs:Literal
+
+    
+Datatype: xsd:boolean
+
+    
+Datatype: xsd:integer
+
+    
+Datatype: xsd:string
+
+    
+ObjectProperty: hasConnector
+
+    Domain: 
+        Condition
+    
+    Range: 
+        OperatorLogic
+    
+    
+ObjectProperty: hasContract
+
+    Characteristics: 
+        Functional
+    
+    Domain: 
+        Component
+    
+    Range: 
+        Contract
+    
+    
+ObjectProperty: hasDataTypeParameter
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        DataType
+    
+    
+ObjectProperty: hasDirection
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        ParameterDirection
+    
+    
+ObjectProperty: hasInstance
+
+    Domain: 
+        Component
+    
+    Range: 
+        Instance
+    
+    
+ObjectProperty: hasInterface
+
+    Domain: 
+        Component
+    
+    Range: 
+        Interface
+    
+    
+ObjectProperty: hasInvariant
+
+    Annotations: 
+        rdfs:comment ":Deposit :hasInvariant :Condition2 .  ",
+        rdfs:label "Object Property: :<Method> :hasInvariant :<Condition> ."
+    
+    Domain: 
+        Interface,
+        Method
+    
+    Range: 
+        Condition
+    
+    
+ObjectProperty: hasMatch
+
+    Characteristics: 
+        Symmetric,
+        Transitive
+    
+    Domain: 
+        Interface
+    
+    Range: 
+        Interface
+    
+    
+ObjectProperty: hasMethod
+
+    Domain: 
+        Interface
+    
+    Range: 
+        Method
+    
+    
+ObjectProperty: hasMethod2
+
+    Domain: 
+        Interface
+    
+    Range: 
+        Method
+    
+    
+ObjectProperty: hasParameter
+
+    Domain: 
+        Method
+    
+    Range: 
+        Parameter
+    
+    
+ObjectProperty: hasPostcond
+
+    Annotations: 
+        rdfs:comment ":Deposit :hasPostcond :Condition1 .  ",
+        rdfs:label "Object Property: :<Method> :hasPostcond :<Condition> ."
+    
+    Domain: 
+        Method
+    
+    Range: 
+        Condition
+    
+    
+ObjectProperty: hasPrecond
+
+    Annotations: 
+        rdfs:comment ":Deposit :hasPostcond :Condition1 .  ",
+        rdfs:label "Object Property: :<Method> :hasPostcond :<Condition> ."
+    
+    Domain: 
+        Method
+    
+    Range: 
+        Condition
+    
+    
+ObjectProperty: hasReturn
+
+    Domain: 
+        Method
+    
+    Range: 
+        DataType
+    
+    
+ObjectProperty: hasVarName
+
+    Domain: 
+        Condition
+    
+    Range: 
+        Variable
+    
+    
+ObjectProperty: hasVariable
+
+    Domain: 
+        Condition
+    
+    Range: 
+        Condition,
+        Parameter,
+        Variable
+    
+    
+ObjectProperty: hasVariable1
+
+    Domain: 
+        Condition
+    
+    Range: 
+        Condition,
+        Parameter,
+        Variable
+    
+    
+ObjectProperty: hasVariable2
+
+    Domain: 
+        Condition
+    
+    Range: 
+        Condition,
+        Parameter,
+        Variable
+    
+    
+ObjectProperty: hasVisibility
+
+    Domain: 
+        Interface,
+        Method
+    
+    Range: 
+        Visibility
+    
+    
+ObjectProperty: isInputOf
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        Parameter
+    
+    
+ObjectProperty: isInstanceOf
+
+    Domain: 
+        Instance
+    
+    Range: 
+        Component
+    
+    
+ObjectProperty: isInterfaceOf
+
+    Domain: 
+        Interface
+    
+    Range: 
+        Component
+    
+    
+ObjectProperty: isOutputOf
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        Parameter
+    
+    
+ObjectProperty: isSubTypeOf
+
+    Domain: 
+        DataType
+    
+    Range: 
+        Datatype
+    
+    
+ObjectProperty: linkParameter
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        Parameter
+    
+    
+ObjectProperty: typeInterface
+
+    Domain: 
+        Interface
+    
+    Range: 
+        DataType
+    
+    
+ObjectProperty: typeReturn
+
+    Domain: 
+        Method
+    
+    Range: 
+        DataType
+    
+    
+ObjectProperty: useInterface
+
+    Domain: 
+        Contract
+    
+    Range: 
+        Interface
+    
+    
+DataProperty: NomTypeRet
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hardwarePlataform
+
+    
+DataProperty: hasAddress
+
+    
+DataProperty: hasArithmeticOperator
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasAuthorName
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCallMethod
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCallMethod2
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCodeIndex
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCodeMethod
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCodeParameter
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCodeType
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCompanyName
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasComponentID
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasComponentName
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasConstant
+
+    Domain: 
+        xsd:string
+    
+    
+DataProperty: hasEmail
+
+    
+DataProperty: hasFax
+
+    
+DataProperty: hasIndexOrder
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasInterfaceName
+
+    Domain: 
+        Interface
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasMethodName
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameDir
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameDomain
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameIndex
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameParameter
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNamePattern
+
+    Domain: 
+        ComponentType
+    
+    
+DataProperty: hasNameSubDomain
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameSubSubDomain
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameTypePar
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNumMethods
+
+    Domain: 
+        Interface
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasNumParMethod
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNumParameters
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasNumber
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasNumberOfUsed
+
+    
+DataProperty: hasOSversion
+
+    Domain: 
+        OperatingSystem
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasOperator
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasParameterName
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasPhone
+
+    
+DataProperty: hasPrice
+
+    
+DataProperty: hasResponseTime
+
+    
+DataProperty: hasReturnValue
+
+    Domain: 
+        Interface
+    
+    Range: 
+        xsd:boolean
+    
+    
+DataProperty: hasRevisionDate
+
+    
+DataProperty: hasRevisionNumber
+
+    
+DataProperty: hasShortDescription
+
+    
+DataProperty: hasSizeInBytes
+
+    
+DataProperty: hasVariableName1
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasVariableName2
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasVersionDate
+
+    
+DataProperty: hasVersionNumber
+
+    
+DataProperty: hasWebPage
+
+    
+DataProperty: needRAM
+
+    
+DataProperty: needROM
+
+    
+DataProperty: optionalParameter
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:boolean
+    
+    
+DataProperty: symbolOperator
+
+    Domain: 
+        OperatorLogic
+    
+    Range: 
+        xsd:string
+    
+    
+Class: AnotherType
+
+    SubClassOf: 
+        DataType
+    
+    
+Class: AnswerTime
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: ArchitecturalPattern
+
+    SubClassOf: 
+        Pattern
+    
+    
+Class: Array
+
+    SubClassOf: 
+        StructuredType
+    
+    
+Class: BasicType
+
+    SubClassOf: 
+        DataType
+    
+    
+Class: Boolean
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: Byte
+
+    SubClassOf: 
+        Short
+    
+    
+Class: Char
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: Component
+
+    
+Class: ComponentType
+
+    Annotations: 
+        rdfs:comment "Instances of Components",
+        rdfs:label "Class: Instances of Component Type"
+    
+    SubClassOf: 
+        hasInterface min 1 owl:Thing
+    
+    
+Class: Condition
+
+    Annotations: 
+        rdfs:comment "Condition",
+        rdfs:label "Class: Condition used by Pre, Post and Invariant"
+    
+    
+Class: Context
+
+    
+Class: Contract
+
+    
+Class: DataType
+
+    
+Class: Datatype
+
+    
+Class: DesignPattern
+
+    SubClassOf: 
+        Pattern
+    
+    
+Class: Domain
+
+    
+Class: Double
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: ExecutionTime
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: False
+
+    SubClassOf: 
+        Boolean
+    
+    
+Class: Float
+
+    SubClassOf: 
+        Double
+    
+    
+Class: FunctionalRequirements
+
+    SubClassOf: 
+        Requirements
+    
+    
+Class: Input
+
+    SubClassOf: 
+        ParameterDirection
+    
+    
+Class: InputOutput
+
+    SubClassOf: 
+        ParameterDirection
+    
+    
+Class: Instance
+
+    
+Class: Integer
+
+    SubClassOf: 
+        Long
+    
+    
+Class: Interface
+
+    SubClassOf: 
+        hasNumMethods min 1 rdfs:Literal
+    
+    
+Class: List
+
+    SubClassOf: 
+        StructuredType
+    
+    
+Class: Long
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: MemoryResource
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: Method
+
+    
+Class: Multimedia
+
+    SubClassOf: 
+        Domain
+    
+    
+Class: NonFunctionalRequirements_QoS
+
+    SubClassOf: 
+        Requirements
+    
+    
+Class: Null
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: OperatingSystem
+
+    
+Class: Operator
+
+    
+Class: OperatorLogic
+
+    
+Class: OutPut
+
+    SubClassOf: 
+        ParameterDirection
+    
+    
+Class: Parameter
+
+    
+Class: ParameterDirection
+
+    
+Class: Pattern
+
+    
+Class: Performance
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: Provided
+
+    SubClassOf: 
+        Interface
+    
+    DisjointWith: 
+        Required
+    
+    
+Class: QoSAttribute
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: QoSMetric
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: Required
+
+    SubClassOf: 
+        Interface
+    
+    DisjointWith: 
+        Provided
+    
+    
+Class: Requirements
+
+    
+Class: Return
+
+    
+Class: Security
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: Short
+
+    SubClassOf: 
+        Integer
+    
+    
+Class: StructuredType
+
+    SubClassOf: 
+        DataType
+    
+    
+Class: True
+
+    SubClassOf: 
+        Boolean
+    
+    
+Class: Variable
+
+    
+Class: Visibility
+
+    
+Class: Vocabulary
+
+    
+Class: Void
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: owl:Thing
+
+    
+Class: xsd:string
+
+    
+Individual: char
+
+    Types: 
+        DataType
+    
+    Facts:  
+     isSubTypeOf  char,
+     isSubTypeOf  string
+    
+    
+Individual: int
+
+    Types: 
+        DataType
+    
+    Facts:  
+     isSubTypeOf  int,
+     isSubTypeOf  long
+    
+    
+Individual: long
+
+    Types: 
+        DataType
+    
+    Facts:  
+     isSubTypeOf  long
+    
+    
+Individual: string
+
+    Types: 
+        DataType
+    
+    Facts:  
+     isSubTypeOf  string
+    
+    
