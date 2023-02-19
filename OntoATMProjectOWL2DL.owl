@@ -1,0 +1,2161 @@
+Prefix: : <http://www.ejemplo.org/#>
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+
+
+
+Ontology: <http://www.ejemplo.org/#>
+
+
+Annotations: 
+    rdfs:comment "A ATM Ontology for matching among components in ATM model"
+
+AnnotationProperty: hasDomain
+
+    
+AnnotationProperty: hasSubDomain
+
+    
+AnnotationProperty: hasVariableName
+
+    
+AnnotationProperty: rdfs:comment
+
+    
+AnnotationProperty: rdfs:label
+
+    
+Datatype: rdf:PlainLiteral
+
+    
+Datatype: rdfs:Literal
+
+    
+Datatype: xsd:boolean
+
+    
+Datatype: xsd:integer
+
+    
+Datatype: xsd:string
+
+    
+ObjectProperty: hasConnector
+
+    Domain: 
+        Condition
+    
+    Range: 
+        OperatorLogic
+    
+    
+ObjectProperty: hasContract
+
+    Characteristics: 
+        Functional
+    
+    Domain: 
+        Component
+    
+    Range: 
+        Contract
+    
+    
+ObjectProperty: hasDataTypeParameter
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        DataType
+    
+    
+ObjectProperty: hasDirection
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        ParameterDirection
+    
+    
+ObjectProperty: hasInstance
+
+    Domain: 
+        Component
+    
+    Range: 
+        Instance
+    
+    
+ObjectProperty: hasInterface
+
+    Domain: 
+        Component
+    
+    Range: 
+        Interface
+    
+    
+ObjectProperty: hasInvariant
+
+    Annotations: 
+        rdfs:comment ":Deposit :hasInvariant :Condition2 .  ",
+        rdfs:label "Object Property: :<Method> :hasInvariant :<Condition> ."
+    
+    Domain: 
+        Interface,
+        Method
+    
+    Range: 
+        Condition
+    
+    
+ObjectProperty: hasMatch
+
+    Characteristics: 
+        Symmetric,
+        Transitive
+    
+    Domain: 
+        Interface
+    
+    Range: 
+        Interface
+    
+    
+ObjectProperty: hasMethod
+
+    Domain: 
+        Interface
+    
+    Range: 
+        Method
+    
+    
+ObjectProperty: hasMethod2
+
+    Domain: 
+        Interface
+    
+    Range: 
+        Method
+    
+    
+ObjectProperty: hasParameter
+
+    Domain: 
+        Method
+    
+    Range: 
+        Parameter
+    
+    
+ObjectProperty: hasPostcond
+
+    Annotations: 
+        rdfs:comment ":Deposit :hasPostcond :Condition1 .  ",
+        rdfs:label "Object Property: :<Method> :hasPostcond :<Condition> ."
+    
+    Domain: 
+        Method
+    
+    Range: 
+        Condition
+    
+    
+ObjectProperty: hasPrecond
+
+    Annotations: 
+        rdfs:comment ":Deposit :hasPostcond :Condition1 .  ",
+        rdfs:label "Object Property: :<Method> :hasPostcond :<Condition> ."
+    
+    Domain: 
+        Method
+    
+    Range: 
+        Condition
+    
+    
+ObjectProperty: hasReturn
+
+    Domain: 
+        Method
+    
+    Range: 
+        DataType
+    
+    
+ObjectProperty: hasVarName
+
+    Domain: 
+        Condition
+    
+    Range: 
+        Variable
+    
+    
+ObjectProperty: hasVariable
+
+    Domain: 
+        Condition
+    
+    Range: 
+        Condition,
+        Parameter,
+        Variable
+    
+    
+ObjectProperty: hasVariable1
+
+    Domain: 
+        Condition
+    
+    Range: 
+        Condition,
+        Parameter,
+        Variable
+    
+    
+ObjectProperty: hasVariable2
+
+    Domain: 
+        Condition
+    
+    Range: 
+        Condition,
+        Parameter,
+        Variable
+    
+    
+ObjectProperty: hasVisibility
+
+    Domain: 
+        Interface,
+        Method
+    
+    Range: 
+        Visibility
+    
+    
+ObjectProperty: isInputOf
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        Parameter
+    
+    
+ObjectProperty: isInstanceOf
+
+    Domain: 
+        Instance
+    
+    Range: 
+        Component
+    
+    
+ObjectProperty: isInterfaceOf
+
+    Domain: 
+        Interface
+    
+    Range: 
+        Component
+    
+    
+ObjectProperty: isOutputOf
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        Parameter
+    
+    
+ObjectProperty: isSubTypeOf
+
+    Domain: 
+        DataType
+    
+    Range: 
+        Datatype
+    
+    
+ObjectProperty: linkParameter
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        Parameter
+    
+    
+ObjectProperty: typeInterface
+
+    Domain: 
+        Interface
+    
+    Range: 
+        DataType
+    
+    
+ObjectProperty: typeReturn
+
+    Domain: 
+        Method
+    
+    Range: 
+        DataType
+    
+    
+ObjectProperty: useInterface
+
+    Domain: 
+        Contract
+    
+    Range: 
+        Interface
+    
+    
+DataProperty: NomTypeRet
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hardwarePlataform
+
+    
+DataProperty: hasAddress
+
+    
+DataProperty: hasArithmeticOperator
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasAuthorName
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCallMethod
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCallMethod2
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCodeIndex
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCodeMethod
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCodeParameter
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCodeType
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasCompanyName
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasComponentID
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasComponentName
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasConstant
+
+    Domain: 
+        xsd:string
+    
+    
+DataProperty: hasEmail
+
+    
+DataProperty: hasFax
+
+    
+DataProperty: hasIndexOrder
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasInterfaceName
+
+    Domain: 
+        Interface
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasMethodName
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameDir
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameDomain
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameIndex
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameParameter
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNamePattern
+
+    Domain: 
+        ComponentType
+    
+    
+DataProperty: hasNameSubDomain
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameSubSubDomain
+
+    Domain: 
+        ComponentType
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNameTypePar
+
+    Domain: 
+        Parameter
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNumMethods
+
+    Domain: 
+        Interface
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasNumParMethod
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasNumParameters
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasNumber
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasNumberOfUsed
+
+    
+DataProperty: hasOSversion
+
+    Domain: 
+        OperatingSystem
+    
+    Range: 
+        xsd:integer
+    
+    
+DataProperty: hasOperator
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasParameterName
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasPhone
+
+    
+DataProperty: hasPrice
+
+    
+DataProperty: hasResponseTime
+
+    
+DataProperty: hasReturnValue
+
+    Domain: 
+        Interface
+    
+    Range: 
+        xsd:boolean
+    
+    
+DataProperty: hasRevisionDate
+
+    
+DataProperty: hasRevisionNumber
+
+    
+DataProperty: hasShortDescription
+
+    
+DataProperty: hasSizeInBytes
+
+    
+DataProperty: hasVariableName1
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasVariableName2
+
+    Domain: 
+        Condition
+    
+    Range: 
+        xsd:string
+    
+    
+DataProperty: hasVersionDate
+
+    
+DataProperty: hasVersionNumber
+
+    
+DataProperty: hasWebPage
+
+    
+DataProperty: needRAM
+
+    
+DataProperty: needROM
+
+    
+DataProperty: optionalParameter
+
+    Domain: 
+        Method
+    
+    Range: 
+        xsd:boolean
+    
+    
+DataProperty: symbolOperator
+
+    Domain: 
+        OperatorLogic
+    
+    Range: 
+        xsd:string
+    
+    
+Class: AnotherType
+
+    SubClassOf: 
+        DataType
+    
+    
+Class: AnswerTime
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: ArchitecturalPattern
+
+    SubClassOf: 
+        Pattern
+    
+    
+Class: Array
+
+    SubClassOf: 
+        StructuredType
+    
+    
+Class: BasicType
+
+    SubClassOf: 
+        DataType
+    
+    
+Class: Boolean
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: Byte
+
+    SubClassOf: 
+        Short
+    
+    
+Class: Char
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: Component
+
+    
+Class: ComponentType
+
+    Annotations: 
+        rdfs:comment "Instances of Components",
+        rdfs:label "Class: Instances of Component Type"
+    
+    SubClassOf: 
+        hasInterface min 1 owl:Thing
+    
+    
+Class: Condition
+
+    Annotations: 
+        rdfs:comment "Condition",
+        rdfs:label "Class: Condition used by Pre, Post and Invariant"
+    
+    
+Class: Context
+
+    
+Class: Contract
+
+    
+Class: DataType
+
+    
+Class: Datatype
+
+    
+Class: DesignPattern
+
+    SubClassOf: 
+        Pattern
+    
+    
+Class: Domain
+
+    
+Class: Double
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: ExecutionTime
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: False
+
+    SubClassOf: 
+        Boolean
+    
+    
+Class: Float
+
+    SubClassOf: 
+        Double
+    
+    
+Class: FunctionalRequirements
+
+    SubClassOf: 
+        Requirements
+    
+    
+Class: Input
+
+    SubClassOf: 
+        ParameterDirection
+    
+    
+Class: InputOutput
+
+    SubClassOf: 
+        ParameterDirection
+    
+    
+Class: Instance
+
+    
+Class: Int
+
+    
+Class: Integer
+
+    SubClassOf: 
+        Long
+    
+    
+Class: Interface
+
+    SubClassOf: 
+        hasNumMethods min 1 rdfs:Literal
+    
+    
+Class: List
+
+    SubClassOf: 
+        StructuredType
+    
+    
+Class: Long
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: MemoryResource
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: Method
+
+    
+Class: Multimedia
+
+    SubClassOf: 
+        Domain
+    
+    
+Class: NonFunctionalRequirements_QoS
+
+    SubClassOf: 
+        Requirements
+    
+    
+Class: Null
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: OperatingSystem
+
+    
+Class: Operator
+
+    
+Class: OperatorLogic
+
+    
+Class: OutPut
+
+    SubClassOf: 
+        ParameterDirection
+    
+    
+Class: Parameter
+
+    
+Class: ParameterDirection
+
+    
+Class: Pattern
+
+    
+Class: Performance
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: Provided
+
+    SubClassOf: 
+        Interface
+    
+    DisjointWith: 
+        Required
+    
+    
+Class: QoSAttribute
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: QoSMetric
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: Required
+
+    SubClassOf: 
+        Interface
+    
+    DisjointWith: 
+        Provided
+    
+    
+Class: Requirements
+
+    
+Class: Return
+
+    
+Class: Security
+
+    SubClassOf: 
+        NonFunctionalRequirements_QoS
+    
+    
+Class: Short
+
+    SubClassOf: 
+        Integer
+    
+    
+Class: String
+
+    
+Class: StructuredType
+
+    SubClassOf: 
+        DataType
+    
+    
+Class: True
+
+    SubClassOf: 
+        Boolean
+    
+    
+Class: Variable
+
+    
+Class: Visibility
+
+    
+Class: Vocabulary
+
+    
+Class: Void
+
+    SubClassOf: 
+        BasicType
+    
+    
+Class: owl:Thing
+
+    
+Class: xsd:string
+
+    
+Individual: amount
+
+    Types: 
+        Variable
+    
+    
+Individual: amount334
+
+    Facts:  
+     hasDataTypeParameter  int,
+     hasDataTypeParameter  string,
+     hasDirection  in,
+     hasIndexOrder  2,
+     hasIndexOrder  3,
+     hasNameDir  "in",
+     hasNameIndex  "2",
+     hasNameIndex  "3",
+     hasNameParameter  "amount2",
+     hasNameParameter  "amount3",
+     hasNameTypePar  "int3",
+     hasNameTypePar  "string2"
+    
+    
+Individual: amount588
+
+    Facts:  
+     hasDataTypeParameter  int,
+     hasDirection  in,
+     hasIndexOrder  1,
+     hasIndexOrder  3,
+     hasNameDir  "in",
+     hasNameIndex  "1",
+     hasNameIndex  "3",
+     hasNameParameter  "amount1",
+     hasNameParameter  "amount3",
+     hasNameTypePar  "int1",
+     hasNameTypePar  "int3"
+    
+    
+Individual: atm
+
+    Annotations: 
+        hasDomain <http://www.ejemplo.org/#bank>,
+        hasSubDomain <http://www.ejemplo.org/#atm>
+    
+    Types: 
+        ComponentType
+    
+    Facts:  
+     hasInterface  iatmbank334,
+     hasInterface  iatmcard755,
+     hasInterface  iatmprinter771,
+     hasInterface  iatmuser378,
+     hasComponentName  "atm",
+     hasNameDomain  "bank",
+     hasNameSubDomain  "atm"
+    
+    
+Individual: bank
+
+    Annotations: 
+        hasDomain <http://www.ejemplo.org/#bank>,
+        hasSubDomain <http://www.ejemplo.org/#atm>
+    
+    Types: 
+        ComponentType
+    
+    Facts:  
+     hasInterface  ibank588,
+     hasComponentName  "bank",
+     hasNameDomain  "bank",
+     hasNameSubDomain  "atm"
+    
+    
+Individual: card
+
+    Annotations: 
+        hasDomain <http://www.ejemplo.org/#card>,
+        hasSubDomain <http://www.ejemplo.org/#atm>
+    
+    Types: 
+        ComponentType
+    
+    Facts:  
+     hasInterface  icard149,
+     hasComponentName  "card",
+     hasNameDomain  "card",
+     hasNameSubDomain  "atm"
+    
+    
+Individual: cardno149
+
+    Facts:  
+     hasDataTypeParameter  int,
+     hasDirection  in,
+     hasIndexOrder  1,
+     hasNameDir  "in",
+     hasNameIndex  "1",
+     hasNameParameter  "cardno1",
+     hasNameTypePar  "int1"
+    
+    
+Individual: cardno334
+
+    Facts:  
+     hasDataTypeParameter  int,
+     hasDirection  out,
+     hasIndexOrder  1,
+     hasNameDir  "out",
+     hasNameIndex  "1",
+     hasNameParameter  "cardno1",
+     hasNameTypePar  "int1"
+    
+    
+Individual: cardno378
+
+    Facts:  
+     hasDataTypeParameter  int,
+     hasDirection  in,
+     hasIndexOrder  1,
+     hasNameDir  "in",
+     hasNameIndex  "1",
+     hasNameParameter  "cardno1",
+     hasNameTypePar  "int1"
+    
+    
+Individual: cardno580
+
+    Facts:  
+     hasDataTypeParameter  long,
+     hasDirection  in,
+     hasIndexOrder  1,
+     hasNameDir  "in",
+     hasNameIndex  "1",
+     hasNameParameter  "cardno1",
+     hasNameTypePar  "long1"
+    
+    
+Individual: cardno588
+
+    Facts:  
+     hasDataTypeParameter  int,
+     hasDirection  in,
+     hasIndexOrder  1,
+     hasNameDir  "in",
+     hasNameIndex  "1",
+     hasNameParameter  "cardno1",
+     hasNameTypePar  "int1"
+    
+    
+Individual: cardno755
+
+    Facts:  
+     hasDataTypeParameter  int,
+     hasDirection  in,
+     hasIndexOrder  1,
+     hasNameDir  "in",
+     hasNameIndex  "1",
+     hasNameParameter  "cardno1",
+     hasNameTypePar  "int1"
+    
+    
+Individual: char
+
+    Types: 
+        Char,
+        DataType
+    
+    Facts:  
+     isSubTypeOf  char,
+     isSubTypeOf  string
+    
+    
+Individual: clientnum334
+
+    Facts:  
+     hasDataTypeParameter  int,
+     hasDirection  in,
+     hasIndexOrder  1,
+     hasNameDir  "in",
+     hasNameIndex  "1",
+     hasNameParameter  "clientnum1",
+     hasNameTypePar  "int1"
+    
+    
+Individual: clientnum588
+
+    Facts:  
+     hasDataTypeParameter  int,
+     hasDirection  in,
+     hasIndexOrder  2,
+     hasNameDir  "in",
+     hasNameIndex  "2",
+     hasNameParameter  "clientnum2",
+     hasNameTypePar  "int2"
+    
+    
+Individual: condition1
+
+    Types: 
+        Condition
+    
+    Facts:  
+     hasCallMethod  "balance()",
+     hasCallMethod2  "creditlimit()",
+     hasOperator  ">="
+    
+    
+Individual: condition10
+
+    Types: 
+        Condition
+    
+    Facts:  
+     hasCallMethod  "balance()",
+     hasCallMethod2  "creditlimit()",
+     hasOperator  ">="
+    
+    
+Individual: condition11
+
+    Annotations: 
+        hasVariableName "amount"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  amount,
+     hasNumber  0,
+     hasOperator  ">"
+    
+    
+Individual: condition12
+
+    Types: 
+        Condition
+    
+    Facts:  
+     hasCallMethod  "validclient(numclient)",
+     hasConstant  "true",
+     hasOperator  "=="
+    
+    
+Individual: condition13
+
+    Annotations: 
+        hasVariableName "selfamount"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  selfamount,
+     hasVariable1  selfamount,
+     hasVariable2  amount,
+     hasArithmeticOperator  "+",
+     hasOperator  "=",
+     hasVariableName1  "selfamount",
+     hasVariableName2  "amount"
+    
+    
+Individual: condition14
+
+    Annotations: 
+        hasVariableName "selfamount"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  selfamount,
+     hasVariable2  amount,
+     hasOperator  ">",
+     hasVariableName2  "amount"
+    
+    
+Individual: condition15
+
+    Annotations: 
+        hasVariableName "password"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  password,
+     hasConstant  "empty",
+     hasOperator  "<>"
+    
+    
+Individual: condition16
+
+    Types: 
+        Condition
+    
+    Facts:  
+     hasCallMethod  "validcard(cardno)",
+     hasConstant  "true",
+     hasOperator  "=="
+    
+    
+Individual: condition17
+
+    Annotations: 
+        hasVariableName "selfamount"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  selfamount,
+     hasVariable1  selfamount,
+     hasVariable2  amount,
+     hasArithmeticOperator  "-",
+     hasOperator  "=",
+     hasVariableName1  "selfamount",
+     hasVariableName2  "amount"
+    
+    
+Individual: condition18
+
+    Types: 
+        Condition
+    
+    Facts:  
+     hasCallMethod  "length(password)",
+     hasNumber  7,
+     hasOperator  ">"
+    
+    
+Individual: condition2
+
+    Annotations: 
+        hasVariableName "amount"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  amount,
+     hasNumber  0,
+     hasOperator  ">"
+    
+    
+Individual: condition3
+
+    Types: 
+        Condition
+    
+    Facts:  
+     hasCallMethod  "validclient(numclient)",
+     hasConstant  "true",
+     hasOperator  "=="
+    
+    
+Individual: condition4
+
+    Annotations: 
+        hasVariableName "selfamount"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  selfamount,
+     hasVariable1  selfamount,
+     hasVariable2  amount,
+     hasArithmeticOperator  "+",
+     hasOperator  "=",
+     hasVariableName1  "selfamount",
+     hasVariableName2  "amount"
+    
+    
+Individual: condition5
+
+    Annotations: 
+        hasVariableName "selfamount"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  selfamount,
+     hasVariable2  amount,
+     hasOperator  ">=",
+     hasVariableName2  "amount"
+    
+    
+Individual: condition6
+
+    Annotations: 
+        hasVariableName "password"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  password,
+     hasConstant  "empty",
+     hasOperator  "<>"
+    
+    
+Individual: condition7
+
+    Types: 
+        Condition
+    
+    Facts:  
+     hasCallMethod  "validcard(cardno)",
+     hasConstant  "true",
+     hasOperator  "=="
+    
+    
+Individual: condition8
+
+    Annotations: 
+        hasVariableName "selfamount"
+    
+    Types: 
+        Condition
+    
+    Facts:  
+     hasVariable  selfamount,
+     hasVariable1  selfamount,
+     hasVariable2  amount,
+     hasArithmeticOperator  "+",
+     hasOperator  "=",
+     hasVariableName1  "selfamount",
+     hasVariableName2  "amount"
+    
+    
+Individual: condition9
+
+    Types: 
+        Condition
+    
+    Facts:  
+     hasCallMethod  "length(password)",
+     hasNumber  5,
+     hasOperator  ">"
+    
+    
+Individual: consortium
+
+    Facts:  
+     hasMethodName  "consortium"
+    
+    
+Individual: consortium755
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "consortium",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: createsession
+
+    Facts:  
+     hasMethodName  "createsession"
+    
+    
+Individual: createsession334
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  long,
+     NomTypeRet  "long",
+     hasMethodName  "createsession",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: createsession588
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "createsession",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: deposit
+
+    Facts:  
+     hasMethodName  "deposit"
+    
+    
+Individual: deposit334
+
+    Types: 
+        Method
+    
+    Facts:  
+     hasParameter  amount334,
+     hasParameter  clientnum334,
+     hasPostcond  condition4,
+     hasPrecond  condition2,
+     hasPrecond  condition3,
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "deposit",
+     hasNumParMethod  "2",
+     hasNumParameters  2,
+     hasParameterName  "amount2",
+     hasParameterName  "clientnum1"
+    
+    
+Individual: deposit588
+
+    Types: 
+        Method
+    
+    Facts:  
+     hasParameter  amount588,
+     hasParameter  clientnum588,
+     hasPostcond  condition13,
+     hasPrecond  condition11,
+     hasPrecond  condition12,
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "deposit",
+     hasNumParMethod  "2",
+     hasNumParameters  2,
+     hasParameterName  "amount1",
+     hasParameterName  "clientnum2"
+    
+    
+Individual: ejectcard
+
+    Facts:  
+     hasMethodName  "ejectcard"
+    
+    
+Individual: ejectcard149
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "ejectcard",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: ejectcard755
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  int,
+     NomTypeRet  "int",
+     hasMethodName  "ejectcard",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: empty
+
+    Types: 
+        DataType
+    
+    
+Individual: iatmbank
+
+    Facts:  
+     hasInvariant  condition1,
+     hasNumMethods  4
+    
+    
+Individual: iatmbank334
+
+    Types: 
+        Interface
+    
+    Facts:  
+     hasMethod  createsession334,
+     hasMethod  deposit334,
+     hasMethod  locatebankv2334,
+     hasMethod  withdrawal334,
+     hasMethod2  createsession,
+     hasMethod2  deposit,
+     hasMethod2  locatebankv2,
+     hasMethod2  withdrawal,
+     typeInterface  required,
+     hasInterfaceName  "iatmbank"
+    
+    
+Individual: iatmcard
+
+    Facts:  
+     hasNumMethods  3
+    
+    
+Individual: iatmcard755
+
+    Types: 
+        Interface
+    
+    Facts:  
+     hasMethod  consortium755,
+     hasMethod  ejectcard755,
+     hasMethod  readcard755,
+     hasMethod2  consortium,
+     hasMethod2  ejectcard,
+     hasMethod2  readcard,
+     typeInterface  required,
+     hasInterfaceName  "iatmcard"
+    
+    
+Individual: iatmprinter
+
+    Facts:  
+     hasNumMethods  1
+    
+    
+Individual: iatmprinter771
+
+    Types: 
+        Interface
+    
+    Facts:  
+     hasMethod  printreceipt771,
+     hasMethod2  printreceipt,
+     typeInterface  required,
+     hasInterfaceName  "iatmprinter"
+    
+    
+Individual: iatmuser
+
+    Facts:  
+     hasNumMethods  3
+    
+    
+Individual: iatmuser378
+
+    Types: 
+        Interface
+    
+    Facts:  
+     hasMethod  readpin378,
+     hasMethod  setmenu378,
+     hasMethod  setmessages378,
+     hasMethod2  readpin,
+     hasMethod2  setmenu,
+     hasMethod2  setmessages,
+     typeInterface  required,
+     hasInterfaceName  "iatmuser"
+    
+    
+Individual: ibank
+
+    Facts:  
+     hasInvariant  condition10,
+     hasNumMethods  4
+    
+    
+Individual: ibank588
+
+    Types: 
+        Interface
+    
+    Facts:  
+     hasMethod  createsession588,
+     hasMethod  deposit588,
+     hasMethod  locatebank588,
+     hasMethod  withdrawal588,
+     hasMethod2  createsession,
+     hasMethod2  deposit,
+     hasMethod2  locatebank,
+     hasMethod2  withdrawal,
+     typeInterface  provided,
+     hasInterfaceName  "ibank"
+    
+    
+Individual: icard
+
+    Facts:  
+     hasNumMethods  2
+    
+    
+Individual: icard149
+
+    Types: 
+        Interface
+    
+    Facts:  
+     hasMethod  ejectcard149,
+     hasMethod  readcard149,
+     hasMethod2  ejectcard,
+     hasMethod2  readcard,
+     typeInterface  provided,
+     hasInterfaceName  "icard"
+    
+    
+Individual: in
+
+    
+Individual: int
+
+    Types: 
+        DataType,
+        Int
+    
+    Facts:  
+     isSubTypeOf  int,
+     isSubTypeOf  long
+    
+    
+Individual: iprinter
+
+    Facts:  
+     hasNumMethods  1
+    
+    
+Individual: iprinter237
+
+    Types: 
+        Interface
+    
+    Facts:  
+     hasMethod  printreceipt237,
+     hasMethod2  printreceipt,
+     typeInterface  provided,
+     hasInterfaceName  "iprinter"
+    
+    
+Individual: iuserconsole
+
+    Facts:  
+     hasNumMethods  3
+    
+    
+Individual: iuserconsole580
+
+    Types: 
+        Interface
+    
+    Facts:  
+     hasMethod  readpin580,
+     hasMethod  setmenu580,
+     hasMethod  setmessages580,
+     hasMethod2  readpin,
+     hasMethod2  setmenu,
+     hasMethod2  setmessages,
+     typeInterface  provided,
+     hasInterfaceName  "iuserconsole"
+    
+    
+Individual: locatebank
+
+    Facts:  
+     hasMethodName  "locatebank"
+    
+    
+Individual: locatebank588
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "locatebank",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: locatebankv2
+
+    Facts:  
+     hasMethodName  "locatebankv2"
+    
+    
+Individual: locatebankv2334
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "locatebankv2",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: long
+
+    Types: 
+        DataType,
+        Long
+    
+    Facts:  
+     isSubTypeOf  long
+    
+    
+Individual: out
+
+    
+Individual: password
+
+    
+Individual: password334
+
+    Facts:  
+     hasDataTypeParameter  string,
+     hasDirection  in,
+     hasIndexOrder  2,
+     hasNameDir  "in",
+     hasNameIndex  "2",
+     hasNameParameter  "password2",
+     hasNameTypePar  "string2"
+    
+    
+Individual: password378
+
+    Facts:  
+     hasDataTypeParameter  string,
+     hasDirection  in,
+     hasIndexOrder  2,
+     hasNameDir  "in",
+     hasNameIndex  "2",
+     hasNameParameter  "password2",
+     hasNameTypePar  "string2"
+    
+    
+Individual: password580
+
+    Facts:  
+     hasDataTypeParameter  char,
+     hasDirection  in,
+     hasIndexOrder  2,
+     hasNameDir  "in",
+     hasNameIndex  "2",
+     hasNameParameter  "password2",
+     hasNameTypePar  "char2"
+    
+    
+Individual: password588
+
+    Facts:  
+     hasDataTypeParameter  string,
+     hasDirection  in,
+     hasIndexOrder  2,
+     hasNameDir  "in",
+     hasNameIndex  "2",
+     hasNameParameter  "password2",
+     hasNameTypePar  "string2"
+    
+    
+Individual: password755
+
+    Facts:  
+     hasDataTypeParameter  string,
+     hasDirection  in,
+     hasIndexOrder  2,
+     hasNameDir  "in",
+     hasNameIndex  "2",
+     hasNameParameter  "password2",
+     hasNameTypePar  "string2"
+    
+    
+Individual: printer
+
+    Annotations: 
+        hasDomain <http://www.ejemplo.org/#printer>,
+        hasSubDomain <http://www.ejemplo.org/#atm>
+    
+    Types: 
+        ComponentType
+    
+    Facts:  
+     hasInterface  iprinter237,
+     hasComponentName  "printer",
+     hasNameDomain  "printer",
+     hasNameSubDomain  "atm"
+    
+    
+Individual: printreceipt
+
+    Facts:  
+     hasMethodName  "printreceipt"
+    
+    
+Individual: printreceipt237
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "printreceipt",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: printreceipt771
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "printreceipt",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: provided
+
+    
+Individual: readcard
+
+    Facts:  
+     hasMethodName  "readcard"
+    
+    
+Individual: readcard149
+
+    Types: 
+        Method
+    
+    Facts:  
+     hasParameter  cardno149,
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "readcard",
+     hasNumParMethod  "1",
+     hasNumParameters  1,
+     hasParameterName  "cardno1"
+    
+    
+Individual: readcard755
+
+    Types: 
+        Method
+    
+    Facts:  
+     hasParameter  cardno755,
+     hasParameter  password755,
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "readcard",
+     hasNumParMethod  "2",
+     hasNumParameters  2,
+     hasParameterName  "cardno1",
+     hasParameterName  "password2"
+    
+    
+Individual: readpin
+
+    Facts:  
+     hasMethodName  "readpin"
+    
+    
+Individual: readpin378
+
+    Types: 
+        Method
+    
+    Facts:  
+     hasParameter  cardno378,
+     hasParameter  password378,
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "readpin",
+     hasNumParMethod  "2",
+     hasNumParameters  2,
+     hasParameterName  "cardno1",
+     hasParameterName  "password2"
+    
+    
+Individual: readpin580
+
+    Types: 
+        Method
+    
+    Facts:  
+     hasParameter  cardno580,
+     hasParameter  password580,
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "readpin",
+     hasNumParMethod  "2",
+     hasNumParameters  2,
+     hasParameterName  "cardno1",
+     hasParameterName  "password2"
+    
+    
+Individual: required
+
+    
+Individual: selfamount
+
+    
+Individual: setmenu
+
+    Facts:  
+     hasMethodName  "setmenu"
+    
+    
+Individual: setmenu378
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "setmenu",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: setmenu580
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "setmenu",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: setmessages
+
+    Facts:  
+     hasMethodName  "setmessages"
+    
+    
+Individual: setmessages378
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "setmessages",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: setmessages580
+
+    Types: 
+        Method
+    
+    Facts:  
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "setmessages",
+     hasNumParMethod  "0",
+     hasNumParameters  0
+    
+    
+Individual: string
+
+    Types: 
+        DataType,
+        String
+    
+    Facts:  
+     isSubTypeOf  string
+    
+    
+Individual: true
+
+    Types: 
+        DataType
+    
+    
+Individual: userconsole
+
+    Annotations: 
+        hasDomain <http://www.ejemplo.org/#atm>,
+        hasSubDomain <http://www.ejemplo.org/#keyboard>
+    
+    Types: 
+        ComponentType
+    
+    Facts:  
+     hasInterface  iuserconsole580,
+     hasComponentName  "userconsole",
+     hasNameDomain  "atm",
+     hasNameSubDomain  "keyboard"
+    
+    
+Individual: void
+
+    
+Individual: withdrawal
+
+    Facts:  
+     hasMethodName  "withdrawal"
+    
+    
+Individual: withdrawal334
+
+    Types: 
+        Method
+    
+    Facts:  
+     hasInvariant  condition9,
+     hasParameter  amount334,
+     hasParameter  cardno334,
+     hasParameter  password334,
+     hasPostcond  condition8,
+     hasPrecond  condition5,
+     hasPrecond  condition6,
+     hasPrecond  condition7,
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "withdrawal",
+     hasNumParMethod  "3",
+     hasNumParameters  3,
+     hasParameterName  "amount3",
+     hasParameterName  "cardno1",
+     hasParameterName  "password2"
+    
+    
+Individual: withdrawal588
+
+    Types: 
+        Method
+    
+    Facts:  
+     hasInvariant  condition18,
+     hasParameter  amount588,
+     hasParameter  cardno588,
+     hasParameter  password588,
+     hasPostcond  condition17,
+     hasPrecond  condition14,
+     hasPrecond  condition15,
+     hasPrecond  condition16,
+     typeReturn  void,
+     NomTypeRet  "void",
+     hasMethodName  "withdrawal",
+     hasNumParMethod  "3",
+     hasNumParameters  3,
+     hasParameterName  "amount3",
+     hasParameterName  "cardno1",
+     hasParameterName  "password2"
+    
+    
